@@ -153,7 +153,7 @@ export const pairs = [
   [`Ihr Angebot in 48 Stunden`, `Your quote within 48 hours`],
   [`Nach dem kostenlosen Erstgespräch bekommen Sie innerhalb von zwei Werktagen ein schriftliches Angebot. Unverbindlich.`, `After the free first call you get a written quote within two business days. No obligation.`],
   [`Erstgespräch vereinbaren`, `Book a first call`],
-  [`Alle Angebote verstehen sich netto zzgl. gesetzlicher MwSt.`, `All quotes exclude VAT.`],
+  [`Als Kleinunternehmer gemäß § 19 UStG berechne ich keine Umsatzsteuer.`, `As a small business under section 19 of the German VAT Act (UStG), I do not charge VAT.`],
 
   // FAQ
   [`Häufige Fragen.`, `Frequently asked questions.`],
