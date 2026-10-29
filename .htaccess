@@ -36,3 +36,6 @@
     Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 </IfModule>
+
+# Eigene Fehlerseite
+ErrorDocument 404 /404.html

@@ -7,7 +7,9 @@
     "preview": "http-server dist -p 5174 -c-1 --gzip"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "esbuild": "0.24.0",
-    "http-server": "14.1.1"
+    "http-server": "14.1.1",
+    "sharp": "^0.33.5"
   }
 }

@@ -11,10 +11,19 @@
 import { transform } from "esbuild";
 import { createHash } from "node:crypto";
 import { cp, mkdir, readFile, rm, writeFile, access } from "node:fs/promises";
+import { Resvg } from "@resvg/resvg-js";
+import sharp from "sharp";
 import { pairs as enPairs, same as enSame } from "./i18n/en.mjs";
+import { ogSvg } from "./og.mjs";
 
 const OUT = "dist";
 const FONT = "fonts/SchibstedGrotesk-Variable.woff2";
+// Domain der Live-Seite (Sitemap, robots.txt, Vorschaubilder). Steht auch in index.html und i18n/en.mjs.
+const SITE = "https://genz-dev.com";
+// Angaben, die noch Platzhalter sind. Eintrag löschen, sobald erledigt.
+const PLACEHOLDERS = [
+  "Projekte-Bereich zeigt Platzhalter",
+];
 
 const hash = (s) => createHash("sha256").update(s).digest("hex").slice(0, 8);
 const exists = (p) => access(p).then(() => true, () => false);
@@ -58,6 +67,7 @@ const translate = (html, pairs, same, lang) => {
   // relative Pfade eine Ebene hoch, externe Links, Anker und ./ bleiben
   return out
     .replace(/\s(src|href)="(?!https?:|mailto:|#|\.\.?\/|data:)([^"]+)"/g, ' $1="../$2"')
+    .replace(/\ssrcset="([^"]+)"/g, (_, set) => ` srcset="${set.replace(/(^|,\s*)(?!https?:|\.\.?\/)([^\s,]+)/g, "$1../$2")}"`)
     .replace(/url\("fonts\//g, 'url("../fonts/');
 };
 
@@ -90,9 +100,55 @@ for (const page of ["impressum.html", "datenschutz.html"]) {
   await writeFile(`${OUT}/${page}`, minifyHtml(preload ? html.replace("<link rel=\"stylesheet\"", `${preload}<link rel="stylesheet"`) : html));
 }
 
+// 404-Seite: der Server liefert sie unter jeder Adresse aus, daher Pfade ab /
+const notFound = (await readFile("404.html", "utf8")).replace('href="styles.css"', `href="/${cssFile}"`);
+await writeFile(`${OUT}/404.html`, minifyHtml(preload ? notFound.replace("<link rel=\"stylesheet\"", preload.replace(`href="${FONT}"`, `href="/${FONT}"`) + "<link rel=\"stylesheet\"") : notFound));
+
 await cp("assets", `${OUT}/assets`, { recursive: true });
 await cp("favicon.svg", `${OUT}/favicon.svg`);
 await cp(".htaccess", `${OUT}/.htaccess`);
 if (hasFont) await cp("fonts", `${OUT}/fonts`, { recursive: true });
 
+// Porträt: aus images/portrait.jpg werden kleine WebP-Dateien in passenden Größen
+// (ohne Metadaten), damit das Foto auch mobil schnell lädt
+for (const size of [112, 320, 640, 960]) {
+  await sharp("images/portrait.jpg").resize(size, size, { fit: "cover" }).webp({ quality: 80 }).toFile(`${OUT}/assets/portrait-${size}.webp`);
+}
+
+// Vorschaubilder fürs Teilen (LinkedIn, WhatsApp, …)
+const logoSvg = await readFile("assets/logo-mark.svg", "utf8");
+const fontFiles = hasFont ? [FONT] : [];
+const host = new URL(SITE).host;
+const ogImages = {
+  "og-image.png": { lines: ["Apps und KI, die Ihrem", "Geschäft Arbeit abnehmen."], subtitle: "App-Entwicklung · KI-Beratung · Webseiten · München" },
+  "og-image-en.png": { lines: ["Apps and AI that take", "work off your plate."], subtitle: "App development · AI consulting · Websites · Munich" },
+};
+for (const [file, text] of Object.entries(ogImages)) {
+  const svg = ogSvg({ logoSvg, url: host, ...text });
+  const png = new Resvg(svg, { font: { loadSystemFonts: true, fontFiles, defaultFontFamily: "Segoe UI" } }).render().asPng();
+  await writeFile(`${OUT}/assets/${file}`, png);
+}
+
+// Für Suchmaschinen: beide Sprachen, mit Verweis auf die jeweils andere
+const today = new Date().toISOString().slice(0, 10);
+const alt = `<xhtml:link rel="alternate" hreflang="de" href="${SITE}/"/><xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/"/>`;
+await writeFile(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<url><loc>${SITE}/</loc><lastmod>${today}</lastmod>${alt}</url>
+<url><loc>${SITE}/en/</loc><lastmod>${today}</lastmod>${alt}</url>
+</urlset>
+`);
+await writeFile(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+
+// Hinweis auf Platzhalter, die vor dem Livegang ersetzt werden müssen
+const warnings = [];
+for (const page of ["index.html", "en/index.html", "impressum.html", "datenschutz.html"]) {
+  // nur sichtbarer Text; Platzhalter sind Wortgruppen in eckigen Klammern, z. B. [Name des Hosters]
+  const html = (await readFile(`${OUT}/${page}`, "utf8")).replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, "");
+  for (const [, v] of html.matchAll(/\[([^\]<>"]*\s[^\]<>"]*)\]/g)) warnings.push(`${page}: [${v}]`);
+  if (html.includes('href="https://www.linkedin.com/"')) warnings.push(`${page}: LinkedIn-Link zeigt noch nicht auf dein Profil`);
+}
+for (const p of PLACEHOLDERS) warnings.push(`überall: ${p}`);
+
 console.log(`dist/ fertig · DE + EN · ${cssFile} · ${jsFile}${hasFont ? " · Schrift vorgeladen" : " · ohne Schriftdatei (Systemschrift)"}`);
+if (warnings.length) console.log(`\nVor dem Livegang noch offen (${warnings.length}):\n  - ${[...new Set(warnings)].join("\n  - ")}`);

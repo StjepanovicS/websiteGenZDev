@@ -9,7 +9,13 @@ export const pairs = [
   [`<html lang="de">`, `<html lang="en">`],
   [`<title>GenZ Dev – App-Entwicklung, KI-Beratung &amp; Webseiten aus München</title>`, `<title>GenZ Dev – App Development, AI Consulting &amp; Websites from Munich</title>`],
   [`GenZ Dev aus München: mobile Apps für iOS und Android, KI-Beratung, Webseiten inklusive Hosting und Pflege sowie Game Development. Klare Preise, ein fester Ansprechpartner.`, `GenZ Dev from Munich: mobile apps for iOS and Android, AI consulting, websites including hosting and maintenance, and game development. Clear prices, one point of contact.`],
-  [`<link rel="canonical" href="https://genzdev.de/">`, `<link rel="canonical" href="https://genzdev.de/en/">`],
+  [`<link rel="canonical" href="https://genz-dev.com/">`, `<link rel="canonical" href="https://genz-dev.com/en/">`],
+  [`<meta property="og:locale" content="de_DE">`, `<meta property="og:locale" content="en_US">`],
+  [`<meta property="og:url" content="https://genz-dev.com/">`, `<meta property="og:url" content="https://genz-dev.com/en/">`],
+  [`GenZ Dev – Apps und KI, die Ihrem Geschäft Arbeit abnehmen`, `GenZ Dev – Apps and AI that take work off your plate`],
+  [`Mobile Apps für iOS und Android, KI-Beratung und Webseiten mit Hosting. Ein Ansprechpartner aus München, Festpreis vor Projektstart.`, `Mobile apps for iOS and Android, AI consulting and websites with hosting. One point of contact in Munich, fixed price before we start.`],
+  [`https://genz-dev.com/assets/og-image.png`, `https://genz-dev.com/assets/og-image-en.png`],
+  [`GenZ Dev – Apps und KI aus München`, `GenZ Dev – apps and AI from Munich`],
   [`Zum Inhalt springen`, `Skip to content`],
   [`aria-label="GenZ Dev – zur Startseite"`, `aria-label="GenZ Dev – home"`],
   [`<div class="lang" role="group" aria-label="Sprache">
@@ -85,6 +91,7 @@ export const pairs = [
   [`<dt>SSL-Zertifikat</dt><dd>gültig</dd>`, `<dt>SSL certificate</dt><dd>valid</dd>`],
   [`<dt>E-Mail-Postfächer</dt><dd>3 aktiv</dd>`, `<dt>Email inboxes</dt><dd>3 active</dd>`],
   [`Monatsbericht Oktober`, `Monthly report, October`],
+  [`<span class="status-example">Beispiel</span>`, `<span class="status-example">Example</span>`],
   [`Sie müssen nichts tun.`, `Nothing for you to do.`],
   [`<h3>Bauen</h3>`, `<h3>Build</h3>`],
   [`Design und Entwicklung nach Ihren Zielen, nicht nach Baukasten.`, `Design and development built around your goals, not a template.`],
@@ -111,6 +118,15 @@ export const pairs = [
   [`Hosting ausschließlich in Deutschland`, `Hosting exclusively in Germany`],
   [`Dokumentierter Code und saubere Übergabe`, `Documented code and a clean handover`],
   [`Feste Reaktionszeiten nach Vereinbarung`, `Agreed response times`],
+
+  // Über mich
+  [`>Über mich<`, `>About me<`],
+  [`B. Sc. Informatik (TU München) und Gründer von GenZ Dev`, `B. Sc. Computer Science (Technical University of Munich) and founder of GenZ Dev`],
+  [`Porträt von Saša Stjepanović`, `Portrait of Saša Stjepanović`],
+  [`Ich entwickle Apps, KI-Lösungen und Webseiten, die im Alltag funktionieren: verständlich erklärt, sauber gebaut und langfristig betreut. Bei mir haben Sie von der ersten Idee bis zum laufenden Betrieb denselben Ansprechpartner.`, `I build apps, AI solutions and websites that work in everyday business: clearly explained, cleanly built and supported for the long term. From the first idea to day-to-day operation, you deal with the same person.`],
+  [`<strong>B. Sc. Informatik</strong><span>TU München</span>`, `<strong>B. Sc. Computer Science</strong><span>TU Munich</span>`],
+  [`<strong>Sitz</strong><span>München</span>`, `<strong>Based in</strong><span>Munich</span>`],
+  [`<strong>Sprachen</strong><span>Deutsch &amp; Englisch</span>`, `<strong>Languages</strong><span>German &amp; English</span>`],
 
   // Ablauf
   [`In drei Schritten zum Ergebnis.`, `Three steps to the result.`],
@@ -179,7 +195,7 @@ export const pairs = [
   [`>Kontakt<`, `>Contact<`],
   [`Erzählen Sie mir von Ihrem Projekt.`, `Tell me about your project.`],
   [`Ich antworte innerhalb eines Werktags. Das Erstgespräch ist kostenlos.`, `I reply within one business day. The first call is free.`],
-  [`Gründer von GenZ Dev, München`, `Founder of GenZ Dev, Munich`],
+  [`B. Sc. Informatik (TU München), Gründer von GenZ Dev`, `B. Sc. Computer Science (TU Munich), founder of GenZ Dev`],
   [` (öffnet in neuem Tab)`, ` (opens in a new tab)`],
   [`<label for="firma">Firma <span class="optional">(optional)</span></label>`, `<label for="firma">Company <span class="optional">(optional)</span></label>`],
   [`<label for="email">E-Mail</label>`, `<label for="email">Email</label>`],
@@ -202,10 +218,10 @@ export const pairs = [
 
 // Texte, die in beiden Sprachen gleich sind (Namen, Fachbegriffe)
 export const same = [
-  "width=device-width, initial-scale=1",
+  "width=device-width, initial-scale=1", "website", "summary_large_image",
   "GenZ Dev", "DE", "EN", "FAQ", "LinkedIn", "Name", "(optional)",
   "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android",
   "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
   "Saša Stjepanović", "SS",
-  "hallo@genzdev.de", "© ",
+  "support@genz-dev.com", "© ",
 ];

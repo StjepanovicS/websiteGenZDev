@@ -455,6 +455,11 @@ a:hover { text-decoration-thickness: 2px; }
   padding: 18px 22px; border-bottom: 1px solid var(--line);
 }
 .status-site { font-weight: 600; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+.status-example {
+  margin-left: 6px; padding: 2px 7px; border-radius: 6px;
+  background: var(--tint); color: var(--muted);
+  font-size: 0.75rem; font-weight: 600; vertical-align: 1px;
+}
 .status-pill {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 4px 10px 4px 8px; border-radius: 999px;
@@ -583,6 +588,27 @@ a:hover { text-decoration-thickness: 2px; }
   background: var(--brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 10.5 2.6 2.6L14 7.5'/%3E%3C/svg%3E") center / 20px no-repeat;
 }
 
+/* Über mich */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+/* Rahmen im Logo-Verlauf um das Porträt */
+.about-photo {
+  width: 100%; max-width: 420px; aspect-ratio: 1;
+  padding: 3px; border-radius: 24px;
+  background: var(--grad);
+}
+.about-photo > * { display: block; width: 100%; height: 100%; border-radius: 21px; object-fit: cover; background: var(--surface); }
+.about-role { margin-top: 10px; color: var(--brand); font-weight: 600; }
+.about-copy .lead { margin-top: 20px; max-width: 54ch; }
+.about-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
+.about-facts li { padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.about-facts strong { display: block; margin-bottom: 4px; color: var(--muted); font-size: 0.8125rem; font-weight: 600; }
+.about-facts span { font-weight: 600; }
+
 /* Ablauf */
 .steps {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -697,9 +723,10 @@ a:hover { text-decoration-thickness: 2px; }
 
 .person { display: flex; align-items: center; gap: 16px; margin-top: 40px; }
 .person-photo {
-  flex: none; display: grid; place-items: center;
+  flex: none; display: block;
   width: 56px; height: 56px; border-radius: 50%;
-  background: var(--brand); color: #fff; font-weight: 600;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--brand);
 }
 .person-name { font-weight: 600; }
 .person .muted { font-size: 0.9375rem; }
@@ -793,7 +820,8 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 @media (max-width: 899px) {
-  .showcase-grid, .split, .faq-grid, .contact-grid, .pricing { grid-template-columns: 1fr; }
+  .showcase-grid, .split, .faq-grid, .contact-grid, .pricing, .about { grid-template-columns: 1fr; }
+  .about-photo { max-width: 280px; }
   .promise { flex-direction: column; align-items: flex-start; }
   .status-card { max-width: 480px; }
   .device-stage { --pw: min(230px, 54vw, 27svh); min-height: calc(var(--pw) * 2.15); }
@@ -812,7 +840,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 @media (max-width: 639px) {
   body { font-size: 1rem; }
-  .cards-4, .cards-2, .projects, .field-row { grid-template-columns: 1fr; }
+  .cards-4, .cards-2, .projects, .field-row, .about-facts { grid-template-columns: 1fr; }
   .projects .project:last-child { grid-column: auto; }
   .hero-actions .btn { flex: 1 1 100%; }
   .no-lockin { flex-direction: column; gap: 14px; padding: 24px; }
