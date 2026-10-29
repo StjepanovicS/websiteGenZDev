@@ -1,0 +1,9 @@
+# Build-Werkzeuge: werden mit `npm install` neu installiert
+node_modules/
+
+# System- und Editor-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+*.log

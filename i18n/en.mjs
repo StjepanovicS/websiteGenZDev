@@ -1,0 +1,211 @@
+// Englische Fassung der Startseite.
+// Jede Zeile: [deutscher Text exakt wie in index.html, englischer Text].
+// Der Build ersetzt längere Texte zuerst und bricht ab, wenn
+// - ein deutscher Text hier nicht mehr in index.html vorkommt (Übersetzung veraltet) oder
+// - auf der englischen Seite noch ein deutscher Text übrig ist, der nicht in `same` steht.
+
+export const pairs = [
+  // Kopf
+  [`<html lang="de">`, `<html lang="en">`],
+  [`<title>GenZ Dev – App-Entwicklung, KI-Beratung &amp; Webseiten aus München</title>`, `<title>GenZ Dev – App Development, AI Consulting &amp; Websites from Munich</title>`],
+  [`GenZ Dev aus München: mobile Apps für iOS und Android, KI-Beratung, Webseiten inklusive Hosting und Pflege sowie Game Development. Klare Preise, ein fester Ansprechpartner.`, `GenZ Dev from Munich: mobile apps for iOS and Android, AI consulting, websites including hosting and maintenance, and game development. Clear prices, one point of contact.`],
+  [`<link rel="canonical" href="https://genzdev.de/">`, `<link rel="canonical" href="https://genzdev.de/en/">`],
+  [`Zum Inhalt springen`, `Skip to content`],
+  [`aria-label="GenZ Dev – zur Startseite"`, `aria-label="GenZ Dev – home"`],
+  [`<div class="lang" role="group" aria-label="Sprache">
+        <a href="./" hreflang="de" lang="de" aria-current="true">DE</a>
+        <a href="en/" hreflang="en" lang="en">EN</a>
+      </div>`, `<div class="lang" role="group" aria-label="Language">
+        <a href="../" hreflang="de" lang="de">DE</a>
+        <a href="./" hreflang="en" lang="en" aria-current="true">EN</a>
+      </div>`],
+  [`aria-label="Hauptnavigation"`, `aria-label="Main navigation"`],
+  [`<span class="sr-only">Menü</span>`, `<span class="sr-only">Menu</span>`],
+  [`>Leistungen<`, `>Services<`],
+  [`>Rundum-Service<`, `>Full service<`],
+  [`>Ablauf<`, `>Process<`],
+  [`>Preise<`, `>Pricing<`],
+  [`Projekt anfragen`, `Start a project`],
+
+  // Hero
+  [`Apps, KI und Web aus München`, `Apps, AI and web from Munich`],
+  [`Apps und KI, die Ihrem Geschäft Arbeit abnehmen.`, `Apps and AI that take work off your plate.`],
+  [`Ich entwickle mobile Apps für iOS und Android und zeige Ihnen, wo KI wirklich hilft. Dazu Webseiten mit Hosting und Pflege. Ein Ansprechpartner, feste Preise, Datenschutz von Anfang an.`, `I build mobile apps for iOS and Android and show you where AI really helps. Plus websites with hosting and maintenance. One point of contact, fixed prices, privacy from day one.`],
+  [`Leistungen ansehen`, `See services`],
+  [`aria-label="Auf einen Blick"`, `aria-label="At a glance"`],
+  [`Festpreis vor Projektstart`, `Fixed price before we start`],
+  [`DSGVO-konform, Server in Deutschland`, `GDPR-compliant, servers in Germany`],
+  [`>Kein Lock-in<`, `>No lock-in<`],
+
+  // App-Showcase
+  [`>App-Entwicklung<`, `>App development<`],
+  [`Von der Idee bis in den App Store.`, `From idea to the App Store.`],
+  [`Idee schärfen`, `Sharpen the idea`],
+  [`Wir legen fest, was die erste Version können muss und was warten kann.`, `We decide what the first version must do and what can wait.`],
+  [`Design und Entwicklung`, `Design and development`],
+  [`Eine Codebasis für iOS und Android. Sie testen früh auf Ihrem eigenen Handy.`, `One codebase for iOS and Android. You test early on your own phone.`],
+  [`Launch mit KI`, `Launch with AI`],
+  [`Veröffentlichung in beiden Stores, auf Wunsch mit KI-Funktionen, die Ihre Daten schützen.`, `Release in both stores, with optional AI features that keep your data safe.`],
+  [`Termin-Assistent`, `Booking assistant`],
+  [`Hast du morgen Vormittag etwas frei?`, `Any free slots tomorrow morning?`],
+  [`Ja, um 9:30 oder 11:00 Uhr. Soll ich 9:30 reservieren?`, `Yes, 9:30 or 11:00. Shall I book 9:30 for you?`],
+  [`9:30 passt, danke!`, `9:30 works, thanks!`],
+  [`Termin bestätigt`, `Booking confirmed`],
+  [`Mi., 9:30 Uhr · Haarschnitt`, `Wed, 9:30 · Haircut`],
+  [`Nachricht schreiben …`, `Write a message …`],
+
+  // Leistungen
+  [`Vier Bereiche, ein Ansprechpartner.`, `Four areas, one point of contact.`],
+  [`Apps für iOS und Android aus einer Codebasis. Von der ersten Version bis zum Update im Store.`, `Apps for iOS and Android from one codebase. From the first version to every store update.`],
+  [`Veröffentlichung im App Store und Play Store`, `Release on the App Store and Google Play`],
+  [`Anbindung an bestehende Systeme`, `Integration with your existing systems`],
+  [`Wartung nach dem Launch`, `Maintenance after launch`],
+  [`>KI-Beratung<`, `>AI consulting<`],
+  [`Wo KI Ihnen tatsächlich Arbeit abnimmt, und wo nicht. Ehrlich bewertet, sauber umgesetzt.`, `Where AI genuinely saves you work, and where it doesn't. Honestly assessed, properly built.`],
+  [`Analyse Ihrer Abläufe`, `Analysis of your workflows`],
+  [`Prototypen und Integration`, `Prototypes and integration`],
+  [`>Datenschutz von Anfang an<`, `>Privacy by design<`],
+  [`>Webseiten<`, `>Websites<`],
+  [`Von der Idee bis zum laufenden Betrieb: Konzept, Design, Entwicklung, Hosting und Pflege.`, `From idea to everyday operation: concept, design, development, hosting and maintenance.`],
+  [`Buchungssystem oder Online-Shop`, `Booking system or online shop`],
+  [`Eigene E-Mail-Postfächer`, `Your own email inboxes`],
+  [`Schnell und bei Google auffindbar`, `Fast and easy to find on Google`],
+  [`Spiele für Mobil, PC und Browser, als eigenes Produkt oder für Ihr Marketing.`, `Games for mobile, PC and browser, as a product of their own or for your marketing.`],
+  [`Prototyp bis fertiges Spiel`, `From prototype to finished game`],
+  [`Serious Games und Lern-Apps`, `Serious games and learning apps`],
+  [`Mobile und Desktop`, `Mobile and desktop`],
+
+  // Rundum-Service
+  [`Sie führen Ihr Geschäft. Um die Technik kümmere ich mich.`, `You run your business. I take care of the tech.`],
+  [`Ich baue Ihre Webseite, betreibe sie auf meinen Servern und halte sie aktuell. Sie bekommen eigene E-Mail-Postfächer unter Ihrer Domain und einen Ansprechpartner, der Ihr Projekt kennt.`, `I build your website, run it on my servers and keep it up to date. You get your own email inboxes on your domain and a contact who knows your project.`],
+  [`aria-label="Beispiel: Monatsbericht einer betreuten Webseite"`, `aria-label="Example: monthly report for a managed website"`],
+  [`<dt>Erreichbarkeit</dt><dd>99,98&nbsp;%</dd>`, `<dt>Uptime</dt><dd>99.98&nbsp;%</dd>`],
+  [`<dt>Letztes Backup</dt><dd>heute, 03:00</dd>`, `<dt>Last backup</dt><dd>today, 3:00 am</dd>`],
+  [`<dd>alle aktuell</dd>`, `<dd>all current</dd>`],
+  [`<dt>SSL-Zertifikat</dt><dd>gültig</dd>`, `<dt>SSL certificate</dt><dd>valid</dd>`],
+  [`<dt>E-Mail-Postfächer</dt><dd>3 aktiv</dd>`, `<dt>Email inboxes</dt><dd>3 active</dd>`],
+  [`Monatsbericht Oktober`, `Monthly report, October`],
+  [`Sie müssen nichts tun.`, `Nothing for you to do.`],
+  [`<h3>Bauen</h3>`, `<h3>Build</h3>`],
+  [`Design und Entwicklung nach Ihren Zielen, nicht nach Baukasten.`, `Design and development built around your goals, not a template.`],
+  [`<h3>Hosten</h3>`, `<h3>Host</h3>`],
+  [`Schnelle Server in Deutschland, SSL, tägliche Backups.`, `Fast servers in Germany, SSL, daily backups.`],
+  [`<h3>Pflegen</h3>`, `<h3>Maintain</h3>`],
+  [`Sicherheitsupdates, Inhaltsänderungen und kleine Anpassungen.`, `Security updates, content changes and small tweaks.`],
+  [`<h3>E-Mail</h3>`, `<h3>Email</h3>`],
+  [`Postfächer wie info@ihre-firma.de, eingerichtet auf allen Geräten.`, `Inboxes like info@your-company.com, set up on all your devices.`],
+  [`Domain, Inhalte und Code gehören Ihnen. Wenn Sie wechseln möchten, übergebe ich alles vollständig und dokumentiert an Sie oder Ihre neue Agentur.`, `Your domain, content and code belong to you. If you ever want to switch, I hand everything over, complete and documented, to you or your new agency.`],
+
+  // Für wen
+  [`>Für wen<`, `>Who it's for<`],
+  [`Passend für den Handwerksbetrieb und den Konzern.`, `Right for the local business and the corporation.`],
+  [`Für kleine Unternehmen und Startups`, `For small businesses and startups`],
+  [`Sie wollen eine gute Webseite, ohne sich in Technik einzuarbeiten.`, `You want a great website without having to learn the tech.`],
+  [`<li>Klare Festpreise statt offener Stundenzettel</li>`, `<li>Clear fixed prices instead of open-ended hourly bills</li>`],
+  [`Verständliche Sprache statt Fachchinesisch`, `Plain language instead of jargon`],
+  [`Schnell online, meist in 2 bis 4 Wochen`, `Online fast, usually in 2 to 4 weeks`],
+  [`Eine monatliche Pauschale, keine Überraschungen`, `One monthly fee, no surprises`],
+  [`Für größere Firmen`, `For larger companies`],
+  [`Sie brauchen einen verlässlichen Partner, der sich in Ihre Prozesse einfügt.`, `You need a reliable partner who fits into your processes.`],
+  [`Auftragsverarbeitungsvertrag (AVV) nach DSGVO`, `Data processing agreement (DPA) under GDPR`],
+  [`Hosting ausschließlich in Deutschland`, `Hosting exclusively in Germany`],
+  [`Dokumentierter Code und saubere Übergabe`, `Documented code and a clean handover`],
+  [`Feste Reaktionszeiten nach Vereinbarung`, `Agreed response times`],
+
+  // Ablauf
+  [`In drei Schritten zum Ergebnis.`, `Three steps to the result.`],
+  [`<h3>Gespräch</h3>`, `<h3>Talk</h3>`],
+  [`Wir klären in 30 Minuten, was Sie brauchen. Danach bekommen Sie ein schriftliches Angebot mit Festpreis. Kostenlos und unverbindlich.`, `In 30 minutes we work out what you need. Then you get a written fixed-price quote. Free and with no obligation.`],
+  [`<h3>Umsetzung</h3>`, `<h3>Delivery</h3>`],
+  [`Ich entwickle, Sie sehen regelmäßig Zwischenstände und geben Feedback. Online geht erst, was Sie freigegeben haben.`, `I build, you see regular progress and give feedback. Nothing goes live until you approve it.`],
+  [`<h3>Betreuung</h3>`, `<h3>Support</h3>`],
+  [`Nach dem Launch bleibe ich Ihr Ansprechpartner: Updates, Backups, Änderungen. Monatlich kündbar.`, `After launch I remain your contact: updates, backups, changes. Cancel any month.`],
+
+  // Projekte
+  [`>Projekte<`, `>Projects<`],
+  [`Ausgewählte Arbeiten.`, `Selected work.`],
+  [`Weitere Referenzen auf Anfrage.`, `More references on request.`],
+  [`<span>Projektbild</span>`, `<span>Project image</span>`],
+  [`Webseite · Buchungssystem`, `Website · Booking system`],
+  [`<h3>Projektname</h3>`, `<h3>Project name</h3>`],
+  [`Kurz: Ausgangslage und Ergebnis, z.&nbsp;B. „40&nbsp;% mehr Online-Buchungen im ersten Quartal“.`, `In short: starting point and result, e.g. “40&nbsp;% more online bookings in the first quarter”.`],
+  [`Kurz: Ausgangslage und Ergebnis in einem Satz.`, `In short: starting point and result in one sentence.`],
+
+  // Preise
+  [`So rechne ich ab.`, `How I charge.`],
+  [`Jedes Projekt ist anders, deshalb gibt es keine Preisliste. Dafür ein klares Vorgehen: Erst sprechen wir, dann bekommen Sie einen schriftlichen Preis. Ohne Kleingedrucktes.`, `Every project is different, so there is no price list. Instead, a clear process: we talk first, then you get a written price. No small print.`],
+  [`Festpreis-Projekt`, `Fixed-price project`],
+  [`Für Apps, Webseiten und Games mit klarem Umfang.`, `For apps, websites and games with a clear scope.`],
+  [`Schriftlicher Festpreis nach dem Erstgespräch`, `Written fixed price after the first call`],
+  [`Keine Nachforderungen für den vereinbarten Umfang`, `No extra charges for the agreed scope`],
+  [`Zahlung in Teilbeträgen nach Projektfortschritt`, `Payment in instalments as the project progresses`],
+  [`<h3>Beratung</h3>`, `<h3>Consulting</h3>`],
+  [`Für KI-Beratung, Workshops und technische Fragen.`, `For AI consulting, workshops and technical questions.`],
+  [`Nach Tagessatz oder als Paket mit festem Umfang`, `Day rate or a package with a fixed scope`],
+  [`Ergebnis schriftlich, mit konkreten nächsten Schritten`, `Written results with concrete next steps`],
+  [`In München vor Ort oder remote`, `On site in Munich or remote`],
+  [`Beratung anfragen`, `Ask about consulting`],
+  [`Für Hosting, Pflege und App-Updates nach dem Launch.`, `For hosting, maintenance and app updates after launch.`],
+  [`Feste monatliche Pauschale`, `Fixed monthly fee`],
+  [`Hosting in Deutschland, Backups, Sicherheitsupdates`, `Hosting in Germany, backups, security updates`],
+  [`<li>Monatlich kündbar</li>`, `<li>Cancel any month</li>`],
+  [`Betreuung anfragen`, `Ask about support`],
+  [`Ihr Angebot in 48 Stunden`, `Your quote within 48 hours`],
+  [`Nach dem kostenlosen Erstgespräch bekommen Sie innerhalb von zwei Werktagen ein schriftliches Angebot. Unverbindlich.`, `After the free first call you get a written quote within two business days. No obligation.`],
+  [`Erstgespräch vereinbaren`, `Book a first call`],
+  [`Alle Angebote verstehen sich netto zzgl. gesetzlicher MwSt.`, `All quotes exclude VAT.`],
+
+  // FAQ
+  [`Häufige Fragen.`, `Frequently asked questions.`],
+  [`Ihre Frage ist nicht dabei? <a href="#kontakt">Schreiben Sie mir.</a>`, `Question not listed? <a href="#kontakt">Get in touch.</a>`],
+  [`Was kostet eine App?`, `How much does an app cost?`],
+  [`Das hängt vom Umfang ab. Nach dem kostenlosen Erstgespräch bekommen Sie einen Festpreis. Oft starten wir mit einer schlanken ersten Version, die Sie schnell mit echten Nutzern testen können.`, `It depends on the scope. After the free initial call you get a fixed price. We often start with a lean first version that you can quickly test with real users.`],
+  [`Wie hilft mir KI-Beratung konkret?`, `How does AI consulting actually help me?`],
+  [`Ich schaue mir Ihre Abläufe an und zeige, wo KI Zeit spart, etwa bei Anfragen, Terminen oder Dokumenten. Sie bekommen eine ehrliche Einschätzung, auch wenn die Antwort lautet: lohnt sich hier nicht.`, `I look at your workflows and show where AI saves time, for example with enquiries, appointments or documents. You get an honest assessment, even if the answer is: not worth it here.`],
+  [`Wie lange dauert es, bis meine Webseite online ist?`, `How long until my website is live?`],
+  [`Eine typische Unternehmensseite ist meist in 2 bis 4 Wochen fertig. Den genauen Zeitplan nenne ich Ihnen im Angebot.`, `A typical business website is usually ready in 2 to 4 weeks. The exact timeline is in your quote.`],
+  [`Was passiert, wenn ich später wechseln möchte?`, `What if I want to switch later?`],
+  [`Dann übergebe ich Ihnen Code, Inhalte, Datenbank und Zugänge vollständig und dokumentiert. Domain und Inhalte gehören von Anfang an Ihnen.`, `Then I hand over code, content, database and access, complete and documented. Your domain and content belong to you from day one.`],
+  [`Kann ich Texte und Bilder selbst ändern?`, `Can I edit text and images myself?`],
+  [`Ja, wenn Sie möchten. Ich richte die Seite so ein, dass Sie Texte und Bilder selbst pflegen können, und zeige Ihnen, wie es geht. Oder Sie schicken mir eine kurze Nachricht und ich übernehme das im Rahmen der Pflege.`, `Yes, if you like. I set the site up so you can edit text and images yourself, and show you how. Or send me a short message and I'll take care of it as part of maintenance.`],
+  [`Wo liegen meine Daten?`, `Where is my data stored?`],
+  [`Auf Servern in Deutschland. Für Unternehmen schließe ich einen Auftragsverarbeitungsvertrag (AVV) nach DSGVO ab.`, `On servers in Germany. For businesses, I sign a data processing agreement (DPA) under GDPR.`],
+  [`Was ist in der monatlichen Pauschale enthalten?`, `What does the monthly fee include?`],
+  [`Hosting, SSL-Zertifikat, tägliche Backups, Sicherheitsupdates, Ihre E-Mail-Postfächer und ein festes Kontingent für kleine Änderungen. Monatlich kündbar.`, `Hosting, SSL certificate, daily backups, security updates, your email inboxes and a fixed allowance for small changes. Cancel any month.`],
+  [`Arbeiten Sie nur mit Kunden aus München?`, `Do you only work with clients in Munich?`],
+  [`Nein. Ich arbeite remote mit Kunden in ganz Deutschland. Wer in München sitzt, kann mich gern persönlich treffen.`, `No. I work remotely with clients wherever they are, in German or English. If you're in Munich, we're welcome to meet in person.`],
+
+  // Kontakt
+  [`>Kontakt<`, `>Contact<`],
+  [`Erzählen Sie mir von Ihrem Projekt.`, `Tell me about your project.`],
+  [`Ich antworte innerhalb eines Werktags. Das Erstgespräch ist kostenlos.`, `I reply within one business day. The first call is free.`],
+  [`Gründer von GenZ Dev, München`, `Founder of GenZ Dev, Munich`],
+  [` (öffnet in neuem Tab)`, ` (opens in a new tab)`],
+  [`<label for="firma">Firma <span class="optional">(optional)</span></label>`, `<label for="firma">Company <span class="optional">(optional)</span></label>`],
+  [`<label for="email">E-Mail</label>`, `<label for="email">Email</label>`],
+  [`Worum geht es?`, `What's it about?`],
+  [`<option value="app">Mobile App</option>`, `<option value="app">Mobile app</option>`],
+  [`<option value="web">Webseite</option>`, `<option value="web">Website</option>`],
+  [`<option value="shop">Online-Shop oder Buchungssystem</option>`, `<option value="shop">Online shop or booking system</option>`],
+  [`<option value="other">Etwas anderes</option>`, `<option value="other">Something else</option>`],
+  [`<label for="nachricht">Nachricht</label>`, `<label for="nachricht">Message</label>`],
+  [`Was haben Sie vor? Gibt es einen Zeitrahmen?`, `What are you planning? Is there a timeline?`],
+  [`Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verwendet werden.`, `I have read the <a href="datenschutz.html">privacy policy</a> (in German) and agree that my details may be used to respond to my enquiry.`],
+  [`Anfrage senden`, `Send enquiry`],
+
+  // Footer
+  [`Apps, KI-Beratung, Webseiten und Games. Saša Stjepanović, München.`, `Apps, AI consulting, websites and games. Saša Stjepanović, Munich.`],
+  [`aria-label="Rechtliches und Social Media"`, `aria-label="Legal and social media"`],
+  [`>Impressum</a>`, `>Legal notice</a>`],
+  [`>Datenschutz</a>`, `>Privacy</a>`],
+];
+
+// Texte, die in beiden Sprachen gleich sind (Namen, Fachbegriffe)
+export const same = [
+  "width=device-width, initial-scale=1",
+  "GenZ Dev", "DE", "EN", "FAQ", "LinkedIn", "Name", "(optional)",
+  "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android",
+  "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
+  "Saša Stjepanović", "SS",
+  "hallo@genzdev.de", "© ",
+];

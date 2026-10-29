@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GenZ Dev – App-Entwicklung, KI-Beratung &amp; Webseiten aus München</title>
+  <meta name="description" content="GenZ Dev aus München: mobile Apps für iOS und Android, KI-Beratung, Webseiten inklusive Hosting und Pflege sowie Game Development. Klare Preise, ein fester Ansprechpartner.">
+  <meta name="theme-color" content="#0e1218">
+  <link rel="canonical" href="https://genzdev.de/">
+  <link rel="alternate" hreflang="de" href="https://genzdev.de/">
+  <link rel="alternate" hreflang="en" href="https://genzdev.de/en/">
+  <link rel="alternate" hreflang="x-default" href="https://genzdev.de/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window)document.documentElement.classList.add("motion")</script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header theme-dark" data-header>
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="GenZ Dev – zur Startseite">
+        <img class="logo-mark" src="assets/logo-mark.svg" alt="" width="46" height="29">
+          <span>GenZ Dev</span>
+      </a>
+
+      <nav class="nav" aria-label="Hauptnavigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
+          <span class="sr-only">Menü</span>
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
+        <ul class="nav-list" id="nav-list" data-nav-list>
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#service">Rundum-Service</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li class="nav-cta"><a class="btn btn-primary btn-sm" href="#kontakt">Projekt anfragen</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang" role="group" aria-label="Sprache">
+        <a href="./" hreflang="de" lang="de" aria-current="true">DE</a>
+        <a href="en/" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · Hero -->
+    <section class="hero theme-dark" id="top">
+      <div class="container hero-center">
+        <p class="eyebrow hero-in" style="--i:0">Apps, KI und Web aus München</p>
+        <h1 class="hero-in" style="--i:1">Apps und KI, die Ihrem Geschäft Arbeit abnehmen.</h1>
+        <p class="lead hero-in" style="--i:2">Ich entwickle mobile Apps für iOS und Android und zeige Ihnen, wo KI wirklich hilft. Dazu Webseiten mit Hosting und Pflege. Ein Ansprechpartner, feste Preise, Datenschutz von Anfang an.</p>
+        <div class="hero-actions hero-in" style="--i:3">
+          <a class="btn btn-primary" href="#kontakt">Projekt anfragen</a>
+          <a class="btn btn-ghost" href="#leistungen">Leistungen ansehen</a>
+        </div>
+        <ul class="hero-facts hero-in" style="--i:4" aria-label="Auf einen Blick">
+          <li><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg>Festpreis vor Projektstart</li>
+          <li><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg>DSGVO-konform, Server in Deutschland</li>
+          <li><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg>Kein Lock-in</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1b · App-Showcase: Das Smartphone dreht sich beim Scrollen nach vorn,
+         dann geht der Bildschirm an und die App läuft.
+         Ohne JS oder mit reduzierter Bewegung steht es direkt im Endzustand. -->
+    <section class="showcase theme-dark" aria-labelledby="showcase-title" data-showcase>
+      <div class="showcase-sticky">
+        <div class="container showcase-grid">
+          <div class="showcase-copy">
+            <p class="eyebrow">App-Entwicklung</p>
+            <h2 id="showcase-title">Von der Idee bis in den App Store.</h2>
+            <ol class="showcase-steps">
+              <li class="is-active" data-step>
+                <span class="showcase-num" aria-hidden="true">01</span>
+                <div><h3>Idee schärfen</h3><p>Wir legen fest, was die erste Version können muss und was warten kann.</p></div>
+              </li>
+              <li data-step>
+                <span class="showcase-num" aria-hidden="true">02</span>
+                <div><h3>Design und Entwicklung</h3><p>Eine Codebasis für iOS und Android. Sie testen früh auf Ihrem eigenen Handy.</p></div>
+              </li>
+              <li data-step>
+                <span class="showcase-num" aria-hidden="true">03</span>
+                <div><h3>Launch mit KI</h3><p>Veröffentlichung in beiden Stores, auf Wunsch mit KI-Funktionen, die Ihre Daten schützen.</p></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="device-stage" aria-hidden="true">
+            <div class="device-glow" data-glow></div>
+            <div class="device" data-device>
+              <!-- dünne Schichten hinter der Front ergeben die sichtbare Gehäusekante -->
+              <div class="device-edge" style="--z:1"></div>
+              <div class="device-edge" style="--z:2"></div>
+              <div class="device-edge" style="--z:3"></div>
+              <div class="device-edge" style="--z:4"></div>
+              <div class="device-edge" style="--z:5"></div>
+              <div class="device-edge" style="--z:6"></div>
+              <div class="device-edge" style="--z:7"></div>
+              <div class="device-edge" style="--z:8"></div>
+              <div class="device-front">
+                <div class="device-screen">
+                  <div class="screen-ui" data-screen>
+                    <div class="screen-status"><span>9:41</span><span class="screen-icons"><i></i><i></i><i></i></span></div>
+                    <div class="screen-head">
+                      <span class="screen-avatar">L</span>
+                      <div><strong>Salon Lina</strong><small>Termin-Assistent</small></div>
+                    </div>
+                    <div class="screen-chat">
+                      <p class="bubble bubble-me" data-bubble>Hast du morgen Vormittag etwas frei?</p>
+                      <p class="bubble bubble-ai" data-bubble>Ja, um 9:30 oder 11:00 Uhr. Soll ich 9:30 reservieren?</p>
+                      <p class="bubble bubble-me" data-bubble>9:30 passt, danke!</p>
+                      <div class="bubble-card" data-bubble>
+                        <span class="bubble-check"></span>
+                        <div><strong>Termin bestätigt</strong><small>Mi., 9:30 Uhr · Haarschnitt</small></div>
+                      </div>
+                    </div>
+                    <div class="screen-input">Nachricht schreiben …</div>
+                  </div>
+                  <img class="screen-boot" src="assets/logo-mark.svg" alt="" width="742" height="474" data-boot>
+                  <div class="screen-glass" data-glass></div>
+                </div>
+                <div class="device-island"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · Leistungen -->
+    <section class="section" id="leistungen" aria-labelledby="leistungen-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Leistungen</p>
+          <h2 id="leistungen-title">Vier Bereiche, ein Ansprechpartner.</h2>
+        </header>
+
+        <div class="cards cards-4">
+          <article class="card reveal">
+            <h3 class="card-title"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></span>Mobile Apps</h3>
+            <p>Apps für iOS und Android aus einer Codebasis. Von der ersten Version bis zum Update im Store.</p>
+            <ul class="card-list">
+              <li>Veröffentlichung im App Store und Play Store</li>
+              <li>Anbindung an bestehende Systeme</li>
+              <li>Wartung nach dem Launch</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 12h4"/></svg></span>KI-Beratung</h3>
+            <p>Wo KI Ihnen tatsächlich Arbeit abnimmt, und wo nicht. Ehrlich bewertet, sauber umgesetzt.</p>
+            <ul class="card-list">
+              <li>Analyse Ihrer Abläufe</li>
+              <li>Prototypen und Integration</li>
+              <li>Datenschutz von Anfang an</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>Webseiten</h3>
+            <p>Von der Idee bis zum laufenden Betrieb: Konzept, Design, Entwicklung, Hosting und Pflege.</p>
+            <ul class="card-list">
+              <li>Buchungssystem oder Online-Shop</li>
+              <li>Eigene E-Mail-Postfächer</li>
+              <li>Schnell und bei Google auffindbar</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title"><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.5 8h9a4.5 4.5 0 0 1 4.3 5.8l-1 3.4a2.2 2.2 0 0 1-3.7.9L14 16h-4l-2.1 2.1a2.2 2.2 0 0 1-3.7-.9l-1-3.4A4.5 4.5 0 0 1 7.5 8Z"/><path d="M8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg></span>Game Development</h3>
+            <p>Spiele für Mobil, PC und Browser, als eigenes Produkt oder für Ihr Marketing.</p>
+            <ul class="card-list">
+              <li>Prototyp bis fertiges Spiel</li>
+              <li>Serious Games und Lern-Apps</li>
+              <li>Mobile und Desktop</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · Rundum-Service -->
+    <section class="section section-tint" id="service" aria-labelledby="service-title">
+      <div class="container split">
+        <div class="split-copy">
+          <p class="eyebrow">Rundum-Service</p>
+          <h2 id="service-title">Sie führen Ihr Geschäft. Um die Technik kümmere ich mich.</h2>
+          <p class="lead">Ich baue Ihre Webseite, betreibe sie auf meinen Servern und halte sie aktuell. Sie bekommen eigene E-Mail-Postfächer unter Ihrer Domain und einen Ansprechpartner, der Ihr Projekt kennt.</p>
+          <!-- Kein Stockfoto: ein Statusbericht zeigt, was „Rundum-Service“ konkret bedeutet -->
+          <figure class="status-card reveal" aria-label="Beispiel: Monatsbericht einer betreuten Webseite">
+            <div class="status-head">
+              <span class="status-site">baeckerei-huber.de</span>
+              <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Online</span>
+            </div>
+            <dl class="status-list">
+              <div><dt>Erreichbarkeit</dt><dd>99,98&nbsp;%</dd></div>
+              <div><dt>Letztes Backup</dt><dd>heute, 03:00</dd></div>
+              <div><dt>Updates</dt><dd>alle aktuell</dd></div>
+              <div><dt>SSL-Zertifikat</dt><dd>gültig</dd></div>
+              <div><dt>E-Mail-Postfächer</dt><dd>3 aktiv</dd></div>
+            </dl>
+            <figcaption class="status-foot">
+              <span>Monatsbericht Oktober</span>
+              <span>Sie müssen nichts tun.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <ul class="feature-list">
+          <li class="feature reveal">
+            <span class="feature-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Bauen</h3>
+              <p>Design und Entwicklung nach Ihren Zielen, nicht nach Baukasten.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <span class="feature-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Hosten</h3>
+              <p>Schnelle Server in Deutschland, SSL, tägliche Backups.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <span class="feature-num" aria-hidden="true">03</span>
+            <div>
+              <h3>Pflegen</h3>
+              <p>Sicherheitsupdates, Inhaltsänderungen und kleine Anpassungen.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <span class="feature-num" aria-hidden="true">04</span>
+            <div>
+              <h3>E-Mail</h3>
+              <p>Postfächer wie info@ihre-firma.de, eingerichtet auf allen Geräten.</p>
+            </div>
+          </li>
+        </ul>
+
+        <aside class="no-lockin reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>
+          <div>
+            <h3>Kein Lock-in</h3>
+            <p>Domain, Inhalte und Code gehören Ihnen. Wenn Sie wechseln möchten, übergebe ich alles vollständig und dokumentiert an Sie oder Ihre neue Agentur.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 4 · Für wen -->
+    <section class="section" id="fuer-wen" aria-labelledby="fuer-wen-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Für wen</p>
+          <h2 id="fuer-wen-title">Passend für den Handwerksbetrieb und den Konzern.</h2>
+        </header>
+
+        <div class="cards cards-2">
+          <article class="audience reveal">
+            <h3>Für kleine Unternehmen und Startups</h3>
+            <p>Sie wollen eine gute Webseite, ohne sich in Technik einzuarbeiten.</p>
+            <ul class="check-list">
+              <li>Klare Festpreise statt offener Stundenzettel</li>
+              <li>Verständliche Sprache statt Fachchinesisch</li>
+              <li>Schnell online, meist in 2 bis 4 Wochen</li>
+              <li>Eine monatliche Pauschale, keine Überraschungen</li>
+            </ul>
+          </article>
+
+          <article class="audience audience-dark theme-dark reveal">
+            <h3>Für größere Firmen</h3>
+            <p>Sie brauchen einen verlässlichen Partner, der sich in Ihre Prozesse einfügt.</p>
+            <ul class="check-list">
+              <li>Auftragsverarbeitungsvertrag (AVV) nach DSGVO</li>
+              <li>Hosting ausschließlich in Deutschland</li>
+              <li>Dokumentierter Code und saubere Übergabe</li>
+              <li>Feste Reaktionszeiten nach Vereinbarung</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · Ablauf -->
+    <section class="section section-tint" id="ablauf" aria-labelledby="ablauf-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Ablauf</p>
+          <h2 id="ablauf-title">In drei Schritten zum Ergebnis.</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-num">1</span>
+            <h3>Gespräch</h3>
+            <p>Wir klären in 30 Minuten, was Sie brauchen. Danach bekommen Sie ein schriftliches Angebot mit Festpreis. Kostenlos und unverbindlich.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">2</span>
+            <h3>Umsetzung</h3>
+            <p>Ich entwickle, Sie sehen regelmäßig Zwischenstände und geben Feedback. Online geht erst, was Sie freigegeben haben.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">3</span>
+            <h3>Betreuung</h3>
+            <p>Nach dem Launch bleibe ich Ihr Ansprechpartner: Updates, Backups, Änderungen. Monatlich kündbar.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6 · Referenzen (Platzhalter) -->
+    <section class="section" id="projekte" aria-labelledby="projekte-title">
+      <div class="container">
+        <header class="section-head section-head-row">
+          <div>
+            <p class="eyebrow">Projekte</p>
+            <h2 id="projekte-title">Ausgewählte Arbeiten.</h2>
+          </div>
+          <p class="muted">Weitere Referenzen auf Anfrage.</p>
+        </header>
+
+        <div class="projects">
+          <!-- PLATZHALTER: Bild, Titel, Kategorie und Ergebnis durch echte Projekte ersetzen -->
+          <article class="project reveal">
+            <div class="project-media project-media-a" aria-hidden="true"><span>Projektbild</span></div>
+            <div class="project-body">
+              <p class="project-tag">Webseite · Buchungssystem</p>
+              <h3>Projektname</h3>
+              <p>Kurz: Ausgangslage und Ergebnis, z.&nbsp;B. „40&nbsp;% mehr Online-Buchungen im ersten Quartal“.</p>
+            </div>
+          </article>
+          <article class="project reveal">
+            <div class="project-media project-media-b" aria-hidden="true"><span>Projektbild</span></div>
+            <div class="project-body">
+              <p class="project-tag">Mobile App · iOS &amp; Android</p>
+              <h3>Projektname</h3>
+              <p>Kurz: Ausgangslage und Ergebnis in einem Satz.</p>
+            </div>
+          </article>
+          <article class="project reveal">
+            <div class="project-media project-media-c" aria-hidden="true"><span>Projektbild</span></div>
+            <div class="project-body">
+              <p class="project-tag">Game Development</p>
+              <h3>Projektname</h3>
+              <p>Kurz: Ausgangslage und Ergebnis in einem Satz.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · Preise: Abrechnungsmodelle statt fester Beträge -->
+    <section class="section section-tint" id="preise" aria-labelledby="preise-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Preise</p>
+          <h2 id="preise-title">So rechne ich ab.</h2>
+          <p class="lead">Jedes Projekt ist anders, deshalb gibt es keine Preisliste. Dafür ein klares Vorgehen: Erst sprechen wir, dann bekommen Sie einen schriftlichen Preis. Ohne Kleingedrucktes.</p>
+        </header>
+
+        <div class="pricing">
+          <article class="plan plan-featured reveal">
+            <h3>Festpreis-Projekt</h3>
+            <p class="plan-desc">Für Apps, Webseiten und Games mit klarem Umfang.</p>
+            <ul class="check-list">
+              <li>Schriftlicher Festpreis nach dem Erstgespräch</li>
+              <li>Keine Nachforderungen für den vereinbarten Umfang</li>
+              <li>Zahlung in Teilbeträgen nach Projektfortschritt</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#kontakt" data-topic="app">Projekt anfragen</a>
+          </article>
+
+          <article class="plan reveal">
+            <h3>Beratung</h3>
+            <p class="plan-desc">Für KI-Beratung, Workshops und technische Fragen.</p>
+            <ul class="check-list">
+              <li>Nach Tagessatz oder als Paket mit festem Umfang</li>
+              <li>Ergebnis schriftlich, mit konkreten nächsten Schritten</li>
+              <li>In München vor Ort oder remote</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#kontakt" data-topic="ki">Beratung anfragen</a>
+          </article>
+
+          <article class="plan reveal">
+            <h3>Betreuung</h3>
+            <p class="plan-desc">Für Hosting, Pflege und App-Updates nach dem Launch.</p>
+            <ul class="check-list">
+              <li>Feste monatliche Pauschale</li>
+              <li>Hosting in Deutschland, Backups, Sicherheitsupdates</li>
+              <li>Monatlich kündbar</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#kontakt" data-topic="web">Betreuung anfragen</a>
+          </article>
+        </div>
+
+        <div class="promise theme-dark reveal">
+          <div>
+            <h3>Ihr Angebot in 48 Stunden</h3>
+            <p>Nach dem kostenlosen Erstgespräch bekommen Sie innerhalb von zwei Werktagen ein schriftliches Angebot. Unverbindlich.</p>
+          </div>
+          <a class="btn btn-primary" href="#kontakt">Erstgespräch vereinbaren</a>
+        </div>
+
+        <p class="fineprint">Alle Angebote verstehen sich netto zzgl. gesetzlicher MwSt.</p>
+      </div>
+    </section>
+
+    <!-- 8 · FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <header class="section-head">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Häufige Fragen.</h2>
+          <p class="muted">Ihre Frage ist nicht dabei? <a href="#kontakt">Schreiben Sie mir.</a></p>
+        </header>
+
+        <div class="faq">
+          <details>
+            <summary>Was kostet eine App?</summary>
+            <div class="faq-body"><p>Das hängt vom Umfang ab. Nach dem kostenlosen Erstgespräch bekommen Sie einen Festpreis. Oft starten wir mit einer schlanken ersten Version, die Sie schnell mit echten Nutzern testen können.</p></div>
+          </details>
+          <details>
+            <summary>Wie hilft mir KI-Beratung konkret?</summary>
+            <div class="faq-body"><p>Ich schaue mir Ihre Abläufe an und zeige, wo KI Zeit spart, etwa bei Anfragen, Terminen oder Dokumenten. Sie bekommen eine ehrliche Einschätzung, auch wenn die Antwort lautet: lohnt sich hier nicht.</p></div>
+          </details>
+          <details>
+            <summary>Wie lange dauert es, bis meine Webseite online ist?</summary>
+            <div class="faq-body"><p>Eine typische Unternehmensseite ist meist in 2 bis 4 Wochen fertig. Den genauen Zeitplan nenne ich Ihnen im Angebot.</p></div>
+          </details>
+          <details>
+            <summary>Was passiert, wenn ich später wechseln möchte?</summary>
+            <div class="faq-body"><p>Dann übergebe ich Ihnen Code, Inhalte, Datenbank und Zugänge vollständig und dokumentiert. Domain und Inhalte gehören von Anfang an Ihnen.</p></div>
+          </details>
+          <details>
+            <summary>Kann ich Texte und Bilder selbst ändern?</summary>
+            <div class="faq-body"><p>Ja, wenn Sie möchten. Ich richte die Seite so ein, dass Sie Texte und Bilder selbst pflegen können, und zeige Ihnen, wie es geht. Oder Sie schicken mir eine kurze Nachricht und ich übernehme das im Rahmen der Pflege.</p></div>
+          </details>
+          <details>
+            <summary>Wo liegen meine Daten?</summary>
+            <div class="faq-body"><p>Auf Servern in Deutschland. Für Unternehmen schließe ich einen Auftragsverarbeitungsvertrag (AVV) nach DSGVO ab.</p></div>
+          </details>
+          <details>
+            <summary>Was ist in der monatlichen Pauschale enthalten?</summary>
+            <div class="faq-body"><p>Hosting, SSL-Zertifikat, tägliche Backups, Sicherheitsupdates, Ihre E-Mail-Postfächer und ein festes Kontingent für kleine Änderungen. Monatlich kündbar.</p></div>
+          </details>
+          <details>
+            <summary>Arbeiten Sie nur mit Kunden aus München?</summary>
+            <div class="faq-body"><p>Nein. Ich arbeite remote mit Kunden in ganz Deutschland. Wer in München sitzt, kann mich gern persönlich treffen.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · Kontakt -->
+    <section class="section section-contact" id="kontakt" aria-labelledby="kontakt-title">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Kontakt</p>
+          <h2 id="kontakt-title">Erzählen Sie mir von Ihrem Projekt.</h2>
+          <p class="lead">Ich antworte innerhalb eines Werktags. Das Erstgespräch ist kostenlos.</p>
+
+          <div class="person">
+            <!-- PLATZHALTER: durch ein echtes Porträtfoto ersetzen (img, 112×112) -->
+            <div class="person-photo" aria-hidden="true">SS</div>
+            <div>
+              <p class="person-name">Saša Stjepanović</p>
+              <p class="muted">Gründer von GenZ Dev, München</p>
+            </div>
+          </div>
+
+          <ul class="contact-links">
+            <li><a href="mailto:hallo@genzdev.de">hallo@genzdev.de</a></li>
+            <li><a href="https://www.linkedin.com/" rel="noopener" target="_blank">LinkedIn<span class="sr-only"> (öffnet in neuem Tab)</span></a></li>
+          </ul>
+        </div>
+
+        <form class="contact-form" data-contact-form novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="firma">Firma <span class="optional">(optional)</span></label>
+              <input id="firma" name="firma" type="text" autocomplete="organization">
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">E-Mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="thema">Worum geht es?</label>
+            <select id="thema" name="thema">
+              <option value="app">Mobile App</option>
+              <option value="ki">KI-Beratung</option>
+              <option value="web">Webseite</option>
+              <option value="shop">Online-Shop oder Buchungssystem</option>
+              <option value="game">Game Development</option>
+              <option value="other">Etwas anderes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="nachricht">Nachricht</label>
+            <textarea id="nachricht" name="nachricht" rows="5" required placeholder="Was haben Sie vor? Gibt es einen Zeitrahmen?"></textarea>
+          </div>
+          <div class="field field-check">
+            <input id="dsgvo" name="dsgvo" type="checkbox" required>
+            <label for="dsgvo">Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verwendet werden.</label>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Anfrage senden</button>
+          <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer theme-dark">
+    <div class="container footer-inner">
+      <div>
+        <a class="logo logo-footer" href="#top">
+          <img class="logo-mark" src="assets/logo-mark.svg" alt="" width="46" height="29">
+          <span>GenZ Dev</span>
+        </a>
+        <p class="muted">Apps, KI-Beratung, Webseiten und Games. Saša Stjepanović, München.</p>
+      </div>
+      <nav aria-label="Rechtliches und Social Media">
+        <ul class="footer-links">
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="https://www.linkedin.com/" rel="noopener" target="_blank">LinkedIn<span class="sr-only"> (öffnet in neuem Tab)</span></a></li>
+        </ul>
+      </nav>
+      <p class="footer-copy muted">© <span data-year>2026</span> GenZ Dev</p>
+    </div>
+  </footer>
+</body>
+</html>

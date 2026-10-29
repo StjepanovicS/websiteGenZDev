@@ -1,0 +1,38 @@
+# GenZ Dev – Kompression und Caching (Apache)
+
+# Kompression: Brotli, sonst Gzip
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css application/javascript image/svg+xml
+</IfModule>
+<IfModule !mod_brotli.c>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+  </IfModule>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+</IfModule>
+
+<IfModule mod_headers.c>
+  # HTML immer frisch prüfen, damit Änderungen sofort sichtbar sind
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # CSS/JS tragen einen Hash im Namen und ändern sich nie: ein Jahr cachen
+  <FilesMatch "\.[0-9a-f]{8}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Schrift ändert sich praktisch nie
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Logo und Favicon: einen Monat
+  <FilesMatch "\.svg$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>

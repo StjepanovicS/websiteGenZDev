@@ -1,0 +1,13 @@
+{
+  "name": "genzdev-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "http-server dist -p 5174 -c-1 --gzip"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0",
+    "http-server": "14.1.1"
+  }
+}
