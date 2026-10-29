@@ -347,41 +347,43 @@
       </div>
     </section>
 
-    <!-- 6 · Referenzen (Platzhalter) -->
+    <!-- 6 · Projekte: was gerade entsteht, statt leerer Platzhalter -->
     <section class="section" id="projekte" aria-labelledby="projekte-title">
       <div class="container">
         <header class="section-head section-head-row">
           <div>
             <p class="eyebrow">Projekte</p>
-            <h2 id="projekte-title">Ausgewählte Arbeiten.</h2>
+            <h2 id="projekte-title">Woran ich gerade arbeite.</h2>
           </div>
-          <p class="muted">Weitere Referenzen auf Anfrage.</p>
+          <p class="muted">Erste Kundenprojekte folgen.</p>
         </header>
 
         <div class="projects">
-          <!-- PLATZHALTER: Bild, Titel, Kategorie und Ergebnis durch echte Projekte ersetzen -->
-          <article class="project reveal">
-            <div class="project-media project-media-a" aria-hidden="true"><span>Projektbild</span></div>
-            <div class="project-body">
-              <p class="project-tag">Webseite · Buchungssystem</p>
-              <h3>Projektname</h3>
-              <p>Kurz: Ausgangslage und Ergebnis, z.&nbsp;B. „40&nbsp;% mehr Online-Buchungen im ersten Quartal“.</p>
+          <article class="project project-wide reveal">
+            <div class="project-media media-app">
+              <figure class="shot-phone shot-side shot-left"><img src="assets/stayincontact-start-480.webp" srcset="assets/stayincontact-start-240.webp 240w, assets/stayincontact-start-480.webp 480w" sizes="160px" width="480" height="1040" alt="" loading="lazy" decoding="async"></figure>
+              <figure class="shot-phone shot-side shot-right"><img src="assets/stayincontact-detail-480.webp" srcset="assets/stayincontact-detail-240.webp 240w, assets/stayincontact-detail-480.webp 480w" sizes="160px" width="480" height="1040" alt="" loading="lazy" decoding="async"></figure>
+              <!-- Werbevideo: lädt erst, wenn die Karte ins Bild kommt (main.js), läuft stumm in Schleife -->
+              <figure class="shot-video">
+                <video muted loop playsinline preload="none" poster="assets/stayincontact-de-poster.webp" width="360" height="640" aria-label="Werbevideo: So funktioniert StayInContact" data-autoplay-video>
+                  <source data-src="assets/stayincontact-de.mp4" type="video/mp4">
+                  <source data-src="assets/stayincontact-de.webm" type="video/webm">
+                </video>
+                <button class="video-toggle" type="button" aria-label="Video anhalten" hidden data-video-toggle>
+                  <svg class="icon-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>
+                  <svg class="icon-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5.5v9l7.5-4.5z"/></svg>
+                </button>
+              </figure>
             </div>
-          </article>
-          <article class="project reveal">
-            <div class="project-media project-media-b" aria-hidden="true"><span>Projektbild</span></div>
             <div class="project-body">
-              <p class="project-tag">Mobile App · iOS &amp; Android</p>
-              <h3>Projektname</h3>
-              <p>Kurz: Ausgangslage und Ergebnis in einem Satz.</p>
-            </div>
-          </article>
-          <article class="project reveal">
-            <div class="project-media project-media-c" aria-hidden="true"><span>Projektbild</span></div>
-            <div class="project-body">
-              <p class="project-tag">Game Development</p>
-              <h3>Projektname</h3>
-              <p>Kurz: Ausgangslage und Ergebnis in einem Satz.</p>
+              <p class="project-tag">Mobile App · iPhone <span class="project-status">Bald im App Store</span></p>
+              <h3>StayInContact</h3>
+              <p>Erinnert Sie daran, sich bei den Menschen zu melden, die Ihnen wichtig sind. Für jeden Kontakt legen Sie einen eigenen Rhythmus fest, ein Tipp startet Anruf oder WhatsApp. Alle Daten bleiben offline auf dem Gerät.</p>
+              <ul class="project-facts">
+                <li>React Native &amp; Expo</li>
+                <li>27 Sprachen</li>
+                <li>100&nbsp;% offline</li>
+              </ul>
             </div>
           </article>
         </div>

@@ -22,7 +22,6 @@ const FONT = "fonts/SchibstedGrotesk-Variable.woff2";
 const SITE = "https://genz-dev.com";
 // Angaben, die noch Platzhalter sind. Eintrag löschen, sobald erledigt.
 const PLACEHOLDERS = [
-  "Projekte-Bereich zeigt Platzhalter",
 ];
 
 const hash = (s) => createHash("sha256").update(s).digest("hex").slice(0, 8);
@@ -66,7 +65,7 @@ const translate = (html, pairs, same, lang) => {
 
   // relative Pfade eine Ebene hoch, externe Links, Anker und ./ bleiben
   return out
-    .replace(/\s(src|href)="(?!https?:|mailto:|#|\.\.?\/|data:)([^"]+)"/g, ' $1="../$2"')
+    .replace(/\s(src|href|poster|data-src)="(?!https?:|mailto:|#|\.\.?\/|data:)([^"]+)"/g, ' $1="../$2"')
     .replace(/\ssrcset="([^"]+)"/g, (_, set) => ` srcset="${set.replace(/(^|,\s*)(?!https?:|\.\.?\/)([^\s,]+)/g, "$1../$2")}"`)
     .replace(/url\("fonts\//g, 'url("../fonts/');
 };
@@ -105,6 +104,7 @@ const notFound = (await readFile("404.html", "utf8")).replace('href="styles.css"
 await writeFile(`${OUT}/404.html`, minifyHtml(preload ? notFound.replace("<link rel=\"stylesheet\"", preload.replace(`href="${FONT}"`, `href="/${FONT}"`) + "<link rel=\"stylesheet\"") : notFound));
 
 await cp("assets", `${OUT}/assets`, { recursive: true });
+await cp("media", `${OUT}/assets`, { recursive: true }); // Web-Videos und Vorschaubilder (npm run video)
 await cp("favicon.svg", `${OUT}/favicon.svg`);
 await cp(".htaccess", `${OUT}/.htaccess`);
 if (hasFont) await cp("fonts", `${OUT}/fonts`, { recursive: true });
@@ -113,6 +113,13 @@ if (hasFont) await cp("fonts", `${OUT}/fonts`, { recursive: true });
 // (ohne Metadaten), damit das Foto auch mobil schnell lädt
 for (const size of [112, 320, 640, 960]) {
   await sharp("images/portrait.jpg").resize(size, size, { fit: "cover" }).webp({ quality: 80 }).toFile(`${OUT}/assets/portrait-${size}.webp`);
+}
+
+// Projektbilder: App-Screenshots (Hochformat)
+for (const name of ["stayincontact-start", "stayincontact-detail"]) {
+  for (const w of [240, 480]) {
+    await sharp(`images/${name}.png`).resize({ width: w }).webp({ quality: 82 }).toFile(`${OUT}/assets/${name}-${w}.webp`);
+  }
 }
 
 // Vorschaubilder fürs Teilen (LinkedIn, WhatsApp, …)

@@ -136,6 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
       sent: "Danke! Ihr E-Mail-Programm öffnet sich mit der vorbereiteten Anfrage.",
       subject: "Projektanfrage",
       labels: ["Name", "Firma", "E-Mail", "Thema"],
+      videoPlay: "Video abspielen",
+      videoPause: "Video anhalten",
     },
     en: {
       interest: (plan) => `I'm interested in “${plan}”.\n\n`,
@@ -144,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
       sent: "Thank you! Your email app is opening with the prepared enquiry.",
       subject: "Project enquiry",
       labels: ["Name", "Company", "Email", "Topic"],
+      videoPlay: "Play video",
+      videoPause: "Pause video",
     },
   }[document.documentElement.lang === "en" ? "en" : "de"];
 
@@ -181,6 +185,49 @@ document.addEventListener("DOMContentLoaded", () => {
     status.dataset.state = "ok";
     status.textContent = t.sent;
   });
+
+  // Werbevideo in der Projektkarte: Datei lädt erst kurz bevor die Karte ins Bild
+  // kommt, spielt nur, solange sie sichtbar ist, und lässt sich anhalten.
+  // Bei reduzierter Bewegung startet es nicht von selbst.
+  const video = document.querySelector("[data-autoplay-video]");
+  if (video) {
+    const toggle = video.parentElement.querySelector("[data-video-toggle]");
+    let userPaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let visible = false;
+    const load = () => {
+      const sources = video.querySelectorAll("source[data-src]");
+      if (!sources.length) return;
+      sources.forEach((s) => { s.src = s.dataset.src; s.removeAttribute("data-src"); });
+      video.load();
+    };
+    const play = () => video.play().catch(() => {});
+    const setState = (paused) => {
+      toggle.dataset.state = paused ? "paused" : "playing";
+      toggle.setAttribute("aria-label", paused ? t.videoPlay : t.videoPause);
+    };
+    toggle.hidden = false;
+    setState(true);
+    toggle.addEventListener("click", () => {
+      load();
+      userPaused = !video.paused;
+      if (userPaused) video.pause(); else play();
+    });
+    video.addEventListener("play", () => setState(false));
+    video.addEventListener("pause", () => setState(true));
+    if (hasIO) {
+      new IntersectionObserver(([e]) => { if (e.isIntersecting) load(); }, { rootMargin: "400px 0px" }).observe(video);
+      new IntersectionObserver(([e]) => {
+        visible = e.isIntersecting;
+        if (visible) load(); // falls der Lade-Beobachter noch nicht dran war
+        if (visible && !userPaused) play();
+        else if (!visible && !video.paused) video.pause();
+      }, { threshold: 0.35 }).observe(video);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) video.pause();
+        else if (visible && !userPaused) play();
+      });
+    }
+  }
 
   const year = document.querySelector("[data-year]");
   if (year) year.textContent = new Date().getFullYear();

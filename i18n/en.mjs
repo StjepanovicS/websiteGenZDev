@@ -139,13 +139,18 @@ export const pairs = [
 
   // Projekte
   [`>Projekte<`, `>Projects<`],
-  [`Ausgewählte Arbeiten.`, `Selected work.`],
-  [`Weitere Referenzen auf Anfrage.`, `More references on request.`],
-  [`<span>Projektbild</span>`, `<span>Project image</span>`],
-  [`Webseite · Buchungssystem`, `Website · Booking system`],
-  [`<h3>Projektname</h3>`, `<h3>Project name</h3>`],
-  [`Kurz: Ausgangslage und Ergebnis, z.&nbsp;B. „40&nbsp;% mehr Online-Buchungen im ersten Quartal“.`, `In short: starting point and result, e.g. “40&nbsp;% more online bookings in the first quarter”.`],
-  [`Kurz: Ausgangslage und Ergebnis in einem Satz.`, `In short: starting point and result in one sentence.`],
+  [`Woran ich gerade arbeite.`, `What I am working on.`],
+  [`Erste Kundenprojekte folgen.`, `First client projects coming soon.`],
+  [`Mobile App · iPhone `, `Mobile app · iPhone `],
+  [`stayincontact-de-poster.webp`, `stayincontact-en-poster.webp`],
+  [`stayincontact-de.mp4`, `stayincontact-en.mp4`],
+  [`stayincontact-de.webm`, `stayincontact-en.webm`],
+  [`Werbevideo: So funktioniert StayInContact`, `Promo video: how StayInContact works`],
+  [`aria-label="Video anhalten"`, `aria-label="Pause video"`],
+  [`<span class="project-status">Bald im App Store</span>`, `<span class="project-status">Coming soon to the App Store</span>`],
+  [`Erinnert Sie daran, sich bei den Menschen zu melden, die Ihnen wichtig sind. Für jeden Kontakt legen Sie einen eigenen Rhythmus fest, ein Tipp startet Anruf oder WhatsApp. Alle Daten bleiben offline auf dem Gerät.`, `Reminds you to get in touch with the people who matter to you. Set your own rhythm for each contact, and one tap starts a call or WhatsApp. All data stays offline on the device.`],
+  [`<li>27 Sprachen</li>`, `<li>27 languages</li>`],
+  [`<li>100&nbsp;% offline</li>`, `<li>100&nbsp;% offline</li>`],
 
   // Preise
   [`So rechne ich ab.`, `How I charge.`],
@@ -220,7 +225,7 @@ export const pairs = [
 export const same = [
   "width=device-width, initial-scale=1", "website", "summary_large_image",
   "GenZ Dev", "DE", "EN", "FAQ", "LinkedIn", "Name", "(optional)",
-  "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android",
+  "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android", "StayInContact", "React Native &amp; Expo", "100&nbsp;% offline",
   "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
   "Saša Stjepanović", "SS",
   "support@genz-dev.com", "© ",

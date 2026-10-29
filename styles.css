@@ -100,6 +100,8 @@ h2 { font-size: clamp(1.75rem, 3.4vw, 2.625rem); letter-spacing: -0.028em; }
 h3 { font-size: 1.1875rem; letter-spacing: -0.012em; }
 
 p { margin: 0; text-wrap: pretty; }
+/* Lange deutsche Wörter (z. B. „Auftragsverarbeitungsvertrag“) auf kleinen Handys umbrechen statt überstehen lassen */
+p, li, dd, dt, label, h1, h2, h3, summary { overflow-wrap: break-word; hyphens: auto; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
 a { color: var(--brand); text-underline-offset: 3px; text-decoration-thickness: 1px; }
@@ -289,11 +291,21 @@ a:hover { text-decoration-thickness: 2px; }
 /* ---------- Hero ---------- */
 
 .hero {
+  position: relative; z-index: 1;
   padding: clamp(56px, 9vw, 128px) 0 clamp(16px, 3vw, 40px);
-  /* leises Leuchten in den Logofarben, läuft in die Smartphone-Szene über */
-  background-image:
-    radial-gradient(50% 70% at 50% 110%, rgb(5 209 231 / 0.14), transparent 70%),
-    radial-gradient(30% 50% at 70% 115%, rgb(93 245 137 / 0.09), transparent 70%);
+}
+/* Leises Leuchten in den Logofarben. Als eigene Ebene über der Kante zur
+   Smartphone-Szene, damit es weich ausläuft statt an der Sektionsgrenze abzureißen. */
+.hero::after {
+  content: "";
+  position: absolute; left: 50%; bottom: -260px;
+  width: min(1100px, 100%); height: 520px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(closest-side, rgb(5 209 231 / 0.12), transparent),
+    radial-gradient(closest-side at 64% 55%, rgb(93 245 137 / 0.07), transparent);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -447,7 +459,7 @@ a:hover { text-decoration-thickness: 2px; }
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 18px;
-  box-shadow: var(--shadow), 0 40px 80px -40px rgb(5 209 231 / 0.3);
+  box-shadow: var(--shadow), 0 40px 80px -40px rgb(0 0 0 / 0.35);
   overflow: hidden;
 }
 .status-head {
@@ -639,7 +651,13 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 /* Projekte */
-.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.projects { display: grid; gap: 20px; }
+/* Ein Projekt: breite Karte, Screenshots links, Text rechts */
+.project.project-wide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.project-wide .project-media { aspect-ratio: auto; min-height: 380px; height: 100%; }
+.project-wide .project-body { align-self: center; padding: clamp(28px, 4vw, 48px); }
+.project-wide h3 { font-size: clamp(1.5rem, 2.4vw, 1.875rem); }
+.project-wide .project-body > p { font-size: 1rem; max-width: 46ch; }
 .project {
   display: flex; flex-direction: column;
   background: var(--surface);
@@ -648,17 +666,62 @@ a:hover { text-decoration-thickness: 2px; }
   overflow: hidden;
 }
 .project-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   display: grid; place-items: center;
-  color: var(--muted); font-size: 0.8125rem; letter-spacing: 0.04em;
-  background-color: var(--tint);
-  border-bottom: 1px solid var(--line);
+  background: var(--night);
+  background-image:
+    radial-gradient(60% 80% at 85% 20%, rgb(5 209 231 / 0.16), transparent 70%),
+    radial-gradient(50% 70% at 10% 100%, rgb(93 245 137 / 0.1), transparent 70%);
+  overflow: hidden;
 }
-.project-media span { padding: 4px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); }
 .project-body { padding: 22px 24px 26px; }
-.project-tag { color: var(--brand); font-size: 0.8125rem; font-weight: 600; margin-bottom: 8px; }
+.project-tag { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--brand); font-size: 0.8125rem; font-weight: 600; margin-bottom: 8px; }
+.project-status { padding: 2px 8px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 0.75rem; }
 .project h3 { margin-bottom: 8px; }
-.project-body > p:last-child { color: var(--muted); font-size: 0.9375rem; }
+.project-body > p { color: var(--muted); font-size: 0.9375rem; }
+.project-body > .project-tag { color: var(--brand); }
+
+/* Echte Screenshots in den Projektkarten */
+.project-media figure { margin: 0; }
+/* Bühne: Video in der Mitte, zwei Screenshots dahinter links und rechts */
+.media-app { padding-block: 28px; }
+.media-app > * { grid-area: 1 / 1; }
+.shot-phone {
+  width: 150px; aspect-ratio: 1290 / 2796;
+  padding: 5px; border-radius: 22px;
+  background: #1c2129;
+  box-shadow: inset 0 0 0 1.5px #4b535e, 0 30px 50px -20px rgb(0 0 0 / 0.75);
+}
+.shot-phone img { display: block; width: 100%; height: 100%; border-radius: 17px; object-fit: cover; object-position: top; }
+.shot-side { filter: brightness(0.6) saturate(0.9); }
+.shot-left { transform: translateX(-74%) rotate(-7deg) scale(0.92); }
+.shot-right { transform: translateX(74%) rotate(7deg) scale(0.92); }
+
+.shot-video {
+  position: relative; z-index: 1;
+  width: 190px; aspect-ratio: 9 / 16;
+  border-radius: 20px; overflow: hidden;
+  background: #07050b;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 40px 60px -24px rgb(0 0 0 / 0.8);
+}
+.shot-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.video-toggle {
+  position: absolute; right: 10px; bottom: 10px;
+  display: grid; place-items: center;
+  width: 36px; height: 36px; border: 0; border-radius: 50%;
+  background: rgb(14 18 24 / 0.7); color: #fff;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: transform 160ms var(--ease-out), background-color 150ms ease;
+}
+.video-toggle:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) { .video-toggle:hover { background: rgb(14 18 24 / 0.9); } }
+.video-toggle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.video-toggle .icon-play { fill: currentColor; stroke-width: 1.5; }
+.video-toggle[data-state="paused"] .icon-pause, .video-toggle:not([data-state="paused"]) .icon-play { display: none; }
+
+.project-facts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.project-facts li { padding: 4px 10px; border-radius: 999px; background: var(--tint); color: var(--ink-2); font-size: 0.8125rem; font-weight: 500; }
 
 /* Preise: drei Abrechnungsmodelle, keine Beträge */
 .pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
@@ -774,7 +837,7 @@ a:hover { text-decoration-thickness: 2px; }
 .field [aria-invalid="true"] { border-color: #b4232a; }
 
 .field-check { grid-template-columns: auto 1fr; align-items: start; gap: 12px; }
-.field-check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--brand); }
+.field-check input { width: 24px; height: 24px; margin: 0; accent-color: var(--brand); }
 .field-check label { font-weight: 400; font-size: 0.875rem; color: var(--ink-2); line-height: 1.5; }
 
 .form-status { font-size: 0.9375rem; min-height: 1.5em; }
@@ -820,7 +883,10 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 @media (max-width: 899px) {
-  .showcase-grid, .split, .faq-grid, .contact-grid, .pricing, .about { grid-template-columns: 1fr; }
+  .showcase-grid, .split, .faq-grid, .contact-grid, .pricing, .about, .project.project-wide { grid-template-columns: minmax(0, 1fr); }
+  .project-wide .project-media { min-height: 0; aspect-ratio: auto; padding-block: 24px; }
+  .shot-video { width: 160px; }
+  .shot-phone { width: 126px; }
   .about-photo { max-width: 280px; }
   .promise { flex-direction: column; align-items: flex-start; }
   .status-card { max-width: 480px; }
@@ -834,14 +900,22 @@ a:hover { text-decoration-thickness: 2px; }
   .motion .showcase-steps li.is-active { opacity: 1; }
   .steps { grid-template-columns: 1fr; gap: 16px; }
   .step:not(:last-child)::after { top: auto; bottom: -15px; right: auto; left: 47px; transform: rotate(135deg); }
-  .projects { grid-template-columns: 1fr 1fr; }
-  .projects .project:last-child { grid-column: 1 / -1; }
+}
+
+/* Handy quer (wenig Höhe): Text und Smartphone nebeneinander, Smartphone nach Bildschirmhöhe */
+@media (max-height: 540px) and (orientation: landscape) and (min-width: 600px) {
+  .motion .showcase-sticky { align-items: center; padding-top: 72px; }
+  .motion .showcase-grid { grid-template-columns: minmax(0, 1fr) auto; gap: 32px; }
+  .motion .showcase-copy h2 { font-size: 1.5rem; }
+  .motion .showcase-steps { margin-top: 12px; }
+  .motion .showcase-steps li { grid-area: 1 / 1; opacity: 0; border-top: 0; padding: 0; }
+  .motion .showcase-steps li.is-active { opacity: 1; }
+  .device-stage { --pw: calc((100svh - 104px) / 2.17); min-height: 0; }
 }
 
 @media (max-width: 639px) {
   body { font-size: 1rem; }
-  .cards-4, .cards-2, .projects, .field-row, .about-facts { grid-template-columns: 1fr; }
-  .projects .project:last-child { grid-column: auto; }
+  .cards-4, .cards-2, .projects, .field-row, .about-facts { grid-template-columns: minmax(0, 1fr); }
   .hero-actions .btn { flex: 1 1 100%; }
   .no-lockin { flex-direction: column; gap: 14px; padding: 24px; }
   .promise { padding: 24px; }

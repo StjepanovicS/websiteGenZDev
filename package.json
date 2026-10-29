@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "preview": "http-server dist -p 5174 -c-1 --gzip"
+    "preview": "http-server dist -p 5174 -c-1 --gzip",
+    "video": "node video.mjs"
   },
   "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "esbuild": "0.24.0",
     "http-server": "14.1.1",
