@@ -460,7 +460,8 @@ a:hover { text-decoration-thickness: 2px; }
   padding: 72px 0 0;
   overflow: hidden;
 }
-.motion .showcase-steps li { opacity: 0.35; }
+/* 0.6 statt schwächer: auch inaktive Schritte bleiben lesbar (Kontrast ≥ 4.5:1) */
+.motion .showcase-steps li { opacity: 0.6; }
 .motion .showcase-steps li.is-active { opacity: 1; }
 .motion .device { transform: translateY(3vh) rotateX(22deg) rotateY(-34deg) rotateZ(-10deg) scale(0.86); }
 .motion .screen-ui, .motion .device-glow, .motion [data-bubble] { opacity: 0; }
