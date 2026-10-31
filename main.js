@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const topic = thema.selectedOptions[0].textContent;
     const [lName, lCompany, lEmail, lTopic] = t.labels;
     const body = `${lName}: ${d.get("name")}\n${lCompany}: ${d.get("firma") || "–"}\n${lEmail}: ${d.get("email")}\n${lTopic}: ${topic}\n\n${d.get("nachricht")}`;
-    window.location.href = `mailto:support@genz-dev.com?subject=${encodeURIComponent(`${t.subject}: ${topic}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@genz-dev.com?subject=${encodeURIComponent(`${t.subject}: ${topic}`)}&body=${encodeURIComponent(body)}`;
     status.dataset.state = "ok";
     status.textContent = t.sent;
   });

@@ -228,5 +228,5 @@ export const same = [
   "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android", "StayInContact", "React Native &amp; Expo", "100&nbsp;% offline",
   "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
   "Saša Stjepanović", "SS",
-  "support@genz-dev.com", "© ",
+  "info@genz-dev.com", "© ",
 ];
