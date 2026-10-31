@@ -106,7 +106,8 @@ await writeFile(`${OUT}/404.html`, minifyHtml(preload ? notFound.replace("<link 
 await cp("assets", `${OUT}/assets`, { recursive: true });
 await cp("media", `${OUT}/assets`, { recursive: true }); // Web-Videos und Vorschaubilder (npm run video)
 await cp("favicon.svg", `${OUT}/favicon.svg`);
-await cp(".htaccess", `${OUT}/.htaccess`);
+await cp(".htaccess", `${OUT}/.htaccess`); // Apache (z. B. Hostinger)
+await cp("_headers", `${OUT}/_headers`); // Cloudflare Pages
 if (hasFont) await cp("fonts", `${OUT}/fonts`, { recursive: true });
 
 // Porträt: aus images/portrait.jpg werden kleine WebP-Dateien in passenden Größen

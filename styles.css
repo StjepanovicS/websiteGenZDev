@@ -71,6 +71,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* seitliches Verschieben ausschließen. Bewusst nur clip, kein hidden als Rückfall:
+   hidden auf html und body macht body zum Scroll-Container und legt die
+   Sticky-Smartphone-Szene lahm. */
+html, body { overflow-x: clip; }
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
@@ -230,6 +235,12 @@ a:hover { text-decoration-thickness: 2px; }
   transition: color 150ms ease, background-color 150ms ease;
 }
 .lang a[aria-current] { background: var(--ink); color: var(--night); }
+/* Touch: Tippfläche auf 44 px Höhe vergrößern, ohne das Layout zu ändern */
+@media (pointer: coarse) {
+  .lang a { position: relative; }
+  .lang a::after { content: ""; position: absolute; inset: -7px 0; }
+  .btn-sm { min-height: 44px; }
+}
 @media (hover: hover) and (pointer: fine) {
   .lang a:not([aria-current]):hover { color: var(--ink); }
 }

@@ -1,0 +1,18 @@
+# GenZ Dev – Caching für Cloudflare Pages (entspricht der .htaccess für Apache)
+# HTML prüft Cloudflare von sich aus bei jedem Aufruf neu; Kompression läuft automatisch.
+
+# CSS/JS tragen einen Hash im Namen und ändern sich nie: ein Jahr cachen
+/styles.*.css
+  Cache-Control: public, max-age=31536000, immutable
+/main.*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Schrift ändert sich praktisch nie
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Logo und Favicon: einen Monat
+/assets/*.svg
+  Cache-Control: public, max-age=2592000
+/favicon.svg
+  Cache-Control: public, max-age=2592000
