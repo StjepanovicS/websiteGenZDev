@@ -1,0 +1,11 @@
+// Cloudflare: liefert den fertigen Ordner dist/ als statische Seite aus.
+// Gebaut wird lokal mit `npm run build`; Cloudflare lädt nur hoch.
+{
+  "name": "websitegenzdev",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // unbekannte Adressen zeigen dist/404.html mit Status 404
+    "not_found_handling": "404-page"
+  }
+}
