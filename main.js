@@ -129,27 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Scroll-Reveal: einmalig, Geschwister leicht versetzt
-  const items = document.querySelectorAll(".reveal");
-  const counters = new Map();
-  items.forEach((el) => {
-    const i = counters.get(el.parentElement) ?? 0;
-    counters.set(el.parentElement, i + 1);
-    if (i) el.style.setProperty("--i", Math.min(i, 4));
-  });
-  if (hasIO) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        io.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.1 });
-    items.forEach((el) => io.observe(el));
-  } else {
-    items.forEach((el) => el.classList.add("is-visible"));
-  }
-
   // Texte, die nur im Skript vorkommen. Alles andere steht im HTML der jeweiligen Sprache.
   const t = {
     de: {

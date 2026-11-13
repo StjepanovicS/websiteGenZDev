@@ -893,16 +893,6 @@ a:hover { text-decoration-thickness: 2px; }
 .footer-links a:hover { color: var(--brand); text-decoration: underline; }
 .footer-copy { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid var(--line); font-size: 0.875rem; }
 
-/* ---------- Scroll-Reveal (nur mit JS, dezent, einmalig) ---------- */
-
-.js .reveal {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 60ms);
-}
-.js .reveal.is-visible { opacity: 1; transform: none; }
-
 /* Hero: reine CSS-Animation ab dem ersten Frame. Wartet nicht auf JS,
    damit die Überschrift (LCP-Element) sofort gemalt wird. */
 .hero-in {
@@ -1183,7 +1173,6 @@ a:hover { text-decoration-thickness: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .reveal { transform: none; transition: opacity 300ms ease; transition-delay: 0ms; }
   .hero-in { animation: hero-fade 300ms ease both; animation-delay: 0ms; }
   @keyframes hero-fade { from { opacity: 0; } }
   .status-dot::after { animation: none; }
