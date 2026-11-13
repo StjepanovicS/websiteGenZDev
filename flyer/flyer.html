@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Flyer – GenZ Dev</title>
+<!-- Nur zum Erzeugen von PDF und Bildern (npm run flyer), wird nicht veröffentlicht -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&display=block" rel="stylesheet">
+<style>
+  /* A5 hoch, 148 × 210 mm. Für den Druck kommen ringsum 3 mm Beschnitt dazu. */
+  :root {
+    --bleed: 3mm;
+    --w: calc(148mm + 2 * var(--bleed));
+    --h: calc(210mm + 2 * var(--bleed));
+    --safe: calc(var(--bleed) + 9mm);
+
+    --cyan: #05d1e7;
+    --mint: #5df589;
+    --grad: linear-gradient(100deg, var(--cyan), var(--mint));
+    --night: #0e1218;
+    --surface: #151a22;
+    --on-grad: #04241d;
+    --ink: #f1f5f4;
+    --ink-2: #bcc5cc;
+    --muted: #8f9aa4;
+    --line: rgb(255 255 255 / 0.12);
+
+    --paper: #fafbfa;
+    --tint: #eef2f0;
+    --text: #0e1218;
+    --text-2: #3a414a;
+    --brand: #0a7a68;
+    --brand-soft: #e2f5ef;
+  }
+  .digital { --bleed: 0mm; }
+
+  @page { size: 154mm 216mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #555; }
+  body {
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    text-rendering: geometricPrecision;
+  }
+  .page {
+    position: relative; overflow: hidden;
+    width: var(--w); height: var(--h);
+    padding: var(--safe);
+    break-after: page;
+  }
+  .page:last-child { break-after: auto; }
+  .digital .page { display: none; }
+  .digital[data-side="front"] .front, .digital[data-side="back"] .back { display: flex; }
+
+  .logo { display: flex; align-items: center; gap: 2.2mm; font-weight: 700; font-size: 11pt; letter-spacing: -0.01em; }
+  .logo img { width: 10.5mm; height: auto; }
+  .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ---------- Vorderseite ---------- */
+  .front {
+    display: flex; flex-direction: column;
+    background: var(--night); color: var(--ink);
+  }
+  /* Lichtschein hinter dem Smartphone, aus dem Logo-Verlauf */
+  .front::before {
+    content: ""; position: absolute; width: 150mm; height: 150mm; right: -48mm; top: 58mm;
+    background: radial-gradient(closest-side, rgb(5 209 231 / 0.30), rgb(93 245 137 / 0.10) 55%, transparent);
+  }
+  .front > * { position: relative; }
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .top .place { font-size: 8pt; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
+  .chip {
+    align-self: flex-start; margin-top: 11mm;
+    padding: 1.3mm 3.2mm; border-radius: 99px;
+    border: 0.25mm solid var(--line); color: var(--ink-2);
+    font-size: 7.6pt; font-weight: 600;
+  }
+  .front h1 {
+    margin-top: 4.5mm;
+    font-size: 30pt; line-height: 1.02; letter-spacing: -0.035em; font-weight: 750;
+  }
+  .front h1 .grad-text { display: block; }
+
+  .hero { display: grid; grid-template-columns: 1fr 44mm; gap: 5mm; margin: 5mm 0 7mm; align-items: center; }
+  .checks { list-style: none; display: grid; gap: 3.6mm; }
+  .checks li { display: grid; grid-template-columns: 5.2mm 1fr; gap: 2.4mm; font-size: 9.6pt; line-height: 1.3; color: var(--ink-2); }
+  .checks strong { color: var(--ink); font-weight: 650; display: block; }
+  .tick { width: 5.2mm; height: 5.2mm; border-radius: 50%; background: var(--grad); display: grid; place-items: center; margin-top: 0.3mm; }
+  .tick svg { width: 3.2mm; height: 3.2mm; fill: none; stroke: var(--on-grad); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Smartphone mit Buchungs-Chat, das gleiche Motiv wie auf der Webseite */
+  .phone {
+    width: 44mm; height: 84mm; border-radius: 7.5mm; padding: 1.6mm;
+    background: linear-gradient(160deg, #2a313b, #11151b);
+    box-shadow: 0 0 0 0.3mm rgb(255 255 255 / 0.08), 0 10mm 18mm -6mm rgb(0 0 0 / 0.7);
+    transform: rotate(4deg);
+  }
+  .screen { position: relative; height: 100%; border-radius: 6mm; background: #0b0f14; overflow: hidden; padding: 6.5mm 2.6mm 3mm; display: flex; flex-direction: column; }
+  .island { position: absolute; top: 2mm; left: 50%; width: 11mm; height: 2.8mm; margin-left: -5.5mm; border-radius: 9px; background: #000; }
+  .s-head { display: flex; align-items: center; gap: 1.8mm; padding-bottom: 2.2mm; border-bottom: 0.2mm solid var(--line); }
+  .avatar { width: 6mm; height: 6mm; border-radius: 50%; background: var(--grad); color: var(--on-grad); display: grid; place-items: center; font-size: 7pt; font-weight: 750; }
+  .s-head strong { font-size: 6.6pt; display: block; }
+  .s-head small { font-size: 5.2pt; color: var(--muted); }
+  .chat { display: flex; flex-direction: column; gap: 1.7mm; margin-top: 2.2mm; font-size: 5.6pt; line-height: 1.3; }
+  .b { max-width: 82%; padding: 1.5mm 2.1mm; border-radius: 2.6mm; }
+  .me { align-self: flex-end; background: #232a33; border-bottom-right-radius: 0.8mm; }
+  .ai { align-self: flex-start; background: rgb(93 245 137 / 0.13); color: #dffbe8; border-bottom-left-radius: 0.8mm; }
+  .card { margin-top: 0.6mm; display: flex; gap: 1.8mm; align-items: center; padding: 2mm; border-radius: 2.6mm; background: #151b22; border: 0.2mm solid rgb(93 245 137 / 0.35); }
+  .card .ok { flex: none; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--grad); display: grid; place-items: center; }
+  .card .ok svg { width: 2.8mm; fill: none; stroke: var(--on-grad); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .card strong { display: block; font-size: 5.8pt; }
+  .card small { font-size: 5pt; color: var(--muted); }
+  /* Uhrzeit über dem Chat: greift „nachts um elf“ aus der Überschrift auf */
+  .time { align-self: center; margin-top: 2.4mm; padding: 0.6mm 2mm; border-radius: 99px; background: #151b22; font-size: 5.2pt; font-weight: 600; color: var(--ink-2); }
+  .input { margin-top: auto; padding: 1.6mm 2.2mm; border-radius: 99px; border: 0.2mm solid var(--line); font-size: 5.2pt; color: var(--muted); }
+
+  .cta {
+    margin-top: auto;
+    display: grid; grid-template-columns: 1fr auto; gap: 5mm; align-items: center;
+    padding: 5mm; border-radius: 5mm;
+    background: var(--surface); border: 0.25mm solid var(--line);
+  }
+  .cta .label { font-size: 7.4pt; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .cta .big { margin-top: 1mm; font-size: 14.5pt; font-weight: 750; letter-spacing: -0.02em; line-height: 1.1; }
+  .cta .contact { margin-top: 2.6mm; font-size: 9pt; color: var(--ink-2); line-height: 1.45; }
+  .cta .contact b { color: var(--ink); font-weight: 650; }
+  .qr { width: 27mm; text-align: center; }
+  .qr .tile { background: #fff; border-radius: 3mm; padding: 2.2mm; }
+  .qr img { display: block; width: 100%; }
+  .qr span { display: block; margin-top: 1.6mm; font-size: 6.4pt; color: var(--muted); }
+
+  /* ---------- Rückseite ---------- */
+  .back { display: flex; flex-direction: column; background: var(--paper); color: var(--text); }
+  .back .top .place { color: #5a626b; }
+  .back h2 { margin-top: 9mm; font-size: 21pt; line-height: 1.08; letter-spacing: -0.03em; font-weight: 750; }
+  .back h2 span { color: var(--brand); }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; margin-top: 6.5mm; }
+  .tile { padding: 3.8mm; border-radius: 3.6mm; background: #fff; border: 0.25mm solid #e1e6e4; }
+  .tile .ic { width: 7.5mm; height: 7.5mm; border-radius: 2.2mm; background: var(--brand-soft); display: grid; place-items: center; }
+  .tile .ic svg { width: 4.6mm; fill: none; stroke: var(--brand); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tile h3 { margin-top: 2.6mm; font-size: 10pt; font-weight: 700; letter-spacing: -0.01em; }
+  .tile p { margin-top: 1mm; font-size: 8pt; line-height: 1.38; color: var(--text-2); }
+
+  .steps { margin-top: 6mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .step { border-top: 0.6mm solid var(--brand); padding-top: 2.4mm; }
+  .step .n { font-size: 7.4pt; font-weight: 700; color: var(--brand); letter-spacing: 0.04em; }
+  .step h4 { margin-top: 0.8mm; font-size: 9.4pt; font-weight: 700; }
+  .step p { margin-top: 0.6mm; font-size: 7.6pt; line-height: 1.35; color: var(--text-2); }
+
+  .person {
+    margin-top: auto;
+    display: grid; grid-template-columns: 19mm 1fr; gap: 4mm; align-items: center;
+    padding: 4.4mm; border-radius: 4.4mm;
+    background: var(--night); color: var(--ink);
+  }
+  .person img { width: 19mm; height: 19mm; border-radius: 50%; object-fit: cover; }
+  .person .name { font-size: 11pt; font-weight: 700; }
+  .person .role { font-size: 7.6pt; color: var(--muted); margin-top: 0.4mm; }
+  .person .quote { margin-top: 1.8mm; font-size: 8.6pt; line-height: 1.38; color: var(--ink-2); }
+  .contactrow { margin-top: 4.4mm; display: flex; justify-content: space-between; gap: 3mm; font-size: 9pt; font-weight: 650; }
+  .contactrow span { display: flex; align-items: center; gap: 1.6mm; }
+  .contactrow svg { width: 3.6mm; fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .trust { margin-top: 3mm; font-size: 7.4pt; color: #5a626b; display: flex; justify-content: space-between; }
+  .imprint { margin-top: 2.4mm; padding-top: 2.4mm; border-top: 0.25mm solid #e1e6e4; font-size: 6.4pt; color: #6b737b; }
+</style>
+</head>
+<body>
+
+<!-- ===================== Vorderseite ===================== -->
+<section class="page front">
+  <div class="top">
+    <div class="logo"><img src="../assets/logo-mark.svg" alt="">GenZ Dev</div>
+    <span class="place">München</span>
+  </div>
+
+  <span class="chip">Für Salons, Praxen, Handwerk und Gastro</span>
+  <h1>Ihre Kunden buchen Termine. <span class="grad-text">Auch nachts um elf.</span></h1>
+
+  <div class="hero">
+    <ul class="checks">
+      <li><span class="tick"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg></span><span><strong>Webseite mit Online-Buchung</strong>Termine kommen rein, während Sie arbeiten.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg></span><span><strong>Bei Google gefunden</strong>Schnell, aktuell und auf jedem Handy gut lesbar.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg></span><span><strong>Eigene E-Mail-Adresse</strong>info@ihr-salon.de statt Gmail.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg></span><span><strong>Hosting und Pflege inklusive</strong>Sie müssen sich um nichts kümmern.</span></li>
+    </ul>
+
+    <div class="phone" aria-hidden="true">
+      <div class="screen">
+        <span class="island"></span>
+        <div class="s-head"><span class="avatar">L</span><div><strong>Salon Lina</strong><small>Termin-Assistent</small></div></div>
+        <span class="time">Heute, 23:04</span>
+        <div class="chat">
+          <p class="b me">Hast du morgen Vormittag etwas frei?</p>
+          <p class="b ai">Ja, um 9:30 oder 11:00 Uhr. Soll ich 9:30 reservieren?</p>
+          <p class="b me">9:30 passt, danke!</p>
+          <div class="card"><span class="ok"><svg viewBox="0 0 20 20"><path d="m5 10.5 3 3 7-7"/></svg></span><div><strong>Termin bestätigt</strong><small>Mi., 9:30 Uhr · Haarschnitt</small></div></div>
+        </div>
+        <span class="input">Nachricht schreiben …</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <p class="label">Kostenlos und unverbindlich</p>
+      <p class="big">30 Minuten Erstgespräch.<br><span class="grad-text">Danach ein Festpreis.</span></p>
+      <p class="contact"><b>info@genz-dev.com</b><br>genz-dev.com</p>
+    </div>
+    <div class="qr"><div class="tile"><img src="qr.svg" alt=""></div><span>Scannen und ansehen</span></div>
+  </div>
+</section>
+
+<!-- ===================== Rückseite ===================== -->
+<section class="page back">
+  <div class="top">
+    <div class="logo"><img src="../assets/logo-mark.svg" alt="">GenZ Dev</div>
+    <span class="place">Webseiten · Apps · KI</span>
+  </div>
+
+  <h2>Sie führen Ihr Geschäft.<br><span>Um die Technik kümmere ich mich.</span></h2>
+
+  <div class="tiles">
+    <div class="tile">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>
+      <h3>Webseite</h3>
+      <p>Modern, schnell und auf Ihr Geschäft zugeschnitten. Kein Baukasten.</p>
+    </div>
+    <div class="tile">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 14.5l2 2 4-4"/></svg></span>
+      <h3>Termine und Shop</h3>
+      <p>Online-Buchung oder Shop, direkt auf Ihrer Seite. Rund um die Uhr.</p>
+    </div>
+    <div class="tile">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span>
+      <h3>E-Mail</h3>
+      <p>Postfächer unter Ihrer Domain, eingerichtet auf Handy und PC.</p>
+    </div>
+    <div class="tile">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.4 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <h3>Pflege und Hosting</h3>
+      <p>Updates, Backups und Sicherheit. Server in Deutschland.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step"><span class="n">01</span><h4>Gespräch</h4><p>30 Minuten, kostenlos. Wir klären, was Sie brauchen.</p></div>
+    <div class="step"><span class="n">02</span><h4>Festpreis</h4><p>Ihr schriftliches Angebot innerhalb von 48 Stunden.</p></div>
+    <div class="step"><span class="n">03</span><h4>Online</h4><p>Meist in 2 bis 4 Wochen. Danach bleibe ich da.</p></div>
+  </div>
+
+  <div class="person">
+    <img src="../images/portrait.jpg" alt="">
+    <div>
+      <p class="name">Saša Stjepanović</p>
+      <p class="role">B. Sc. Informatik (TU München) · Gründer von GenZ Dev</p>
+      <p class="quote">„Bei mir haben Sie einen Ansprechpartner, von der ersten Idee bis zum laufenden Betrieb.“</p>
+    </div>
+  </div>
+
+  <div class="contactrow">
+    <span><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>0156 79834154</span>
+    <span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>info@genz-dev.com</span>
+    <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>genz-dev.com</span>
+  </div>
+  <p class="trust"><span>Festpreis vor Projektstart</span><span>Kein Lock-in</span><span>Auch Apps und KI-Beratung</span></p>
+  <p class="imprint">GenZ Dev · Saša Stjepanović · Kraepelinstr. 63, 80804 München</p>
+</section>
+
+<script>
+  // ?side=front oder ?side=back: digitale Einzelseite ohne Beschnitt (für die Bilder)
+  const side = new URLSearchParams(location.search).get("side");
+  if (side) { document.documentElement.classList.add("digital"); document.documentElement.dataset.side = side; }
+</script>
+</body>
+</html>

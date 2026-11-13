@@ -5,13 +5,15 @@
   "scripts": {
     "build": "node build.mjs",
     "preview": "http-server dist -p 5174 -c-1 --gzip",
-    "video": "node video.mjs"
+    "video": "node video.mjs",
+    "flyer": "node flyer/render.mjs"
   },
   "devDependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "esbuild": "0.24.0",
     "http-server": "14.1.1",
+    "qrcode": "^1.5.4",
     "sharp": "^0.33.5"
   }
 }
