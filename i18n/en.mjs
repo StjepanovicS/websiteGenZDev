@@ -128,6 +128,14 @@ export const pairs = [
   [`<strong>Sitz</strong><span>München</span>`, `<strong>Based in</strong><span>Munich</span>`],
   [`<strong>Sprachen</strong><span>Deutsch &amp; Englisch</span>`, `<strong>Languages</strong><span>German &amp; English</span>`],
 
+  // Hinter den Kulissen
+  [`Hinter den Kulissen`, `Behind the scenes`],
+  [`Geprüft, gesichert, überwacht.`, `Tested, backed up, monitored.`],
+  [`Bevor etwas online geht, wird es getestet. Danach laufen Backups, Sicherheitsupdates und die Überwachung der Erreichbarkeit automatisch im Hintergrund. Sie merken davon nichts, außer dass alles funktioniert.`, `Before anything goes live, it gets tested. After that, backups, security updates and uptime monitoring run automatically in the background. You won't notice any of it, except that everything works.`],
+  [`<span class="lab-label">KI-Assistent</span>`, `<span class="lab-label">AI assistant</span>`],
+  [`<span class="lab-label">Sicherheit</span>`, `<span class="lab-label">Security</span>`],
+  [`<span class="lab-label">Erreichbarkeit</span>`, `<span class="lab-label">Uptime</span>`],
+
   // Ablauf
   [`In drei Schritten zum Ergebnis.`, `Three steps to the result.`],
   [`<h3>Gespräch</h3>`, `<h3>Talk</h3>`],
@@ -228,5 +236,6 @@ export const same = [
   "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android", "StayInContact", "React Native &amp; Expo", "100&nbsp;% offline",
   "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
   "Saša Stjepanović", "SS",
+  "Code", "Tests", "App", "Launch", "Backups",
   "info@genz-dev.com", "© ",
 ];

@@ -265,6 +265,152 @@
       </div>
     </section>
 
+    <!-- 3b · Hinter den Kulissen: Kachel-Raster mit Endlos-Animationen (nur CSS/SVG).
+         Grundzustand ohne Animation = fertiges Bild, damit reduzierte Bewegung und
+         Pause ein sinnvolles Standbild zeigen. Mint hebt hervor, was gerade passiert. -->
+    <section class="section theme-dark" id="hintergrund" aria-labelledby="lab-title">
+      <div class="container lab">
+        <div class="lab-copy reveal">
+          <p class="eyebrow">Hinter den Kulissen</p>
+          <h2 id="lab-title">Geprüft, gesichert, überwacht.</h2>
+          <p class="lead">Bevor etwas online geht, wird es getestet. Danach laufen Backups, Sicherheitsupdates und die Überwachung der Erreichbarkeit automatisch im Hintergrund. Sie merken davon nichts, außer dass alles funktioniert.</p>
+        </div>
+
+        <div class="lab-stage reveal" data-lab>
+          <ul class="lab-grid">
+            <!-- Code: Zeilen erscheinen nacheinander -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect class="lab-panel" x="14" y="16" width="92" height="74" rx="6"/>
+                <path class="lab-g" d="M14 28h92"/>
+                <circle class="lab-gf" cx="21" cy="22" r="1.6"/><circle class="lab-gf" cx="27" cy="22" r="1.6"/><circle class="lab-gf" cx="33" cy="22" r="1.6"/>
+                <rect class="lab-gf" x="22" y="36" width="40" height="4" rx="2"/>
+                <rect class="lab-gf" x="30" y="45" width="52" height="4" rx="2"/>
+                <rect class="lab-af" x="30" y="54" width="34" height="4" rx="2"/>
+                <rect class="lab-gf" x="38" y="63" width="44" height="4" rx="2"/>
+                <rect class="lab-gf" x="30" y="72" width="26" height="4" rx="2"/>
+                <rect class="lab-gf" x="22" y="81" width="18" height="4" rx="2"/>
+                <rect class="lab-cover code-cover" x="16" y="32" width="88" height="56"/>
+              </svg>
+              <span class="lab-label">Code</span>
+            </li>
+            <!-- Tests: Haken nacheinander, Fortschritt füllt sich -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect class="lab-panel" x="14" y="14" width="92" height="80" rx="6"/>
+                <g class="lab-af"><circle cx="28" cy="26" r="5"/><circle cx="28" cy="40" r="5"/><circle cx="28" cy="54" r="5"/><circle cx="28" cy="68" r="5"/></g>
+                <path class="lab-tick" d="M25.6 26l1.7 1.7 3.2-3.2M25.6 40l1.7 1.7 3.2-3.2M25.6 54l1.7 1.7 3.2-3.2M25.6 68l1.7 1.7 3.2-3.2"/>
+                <rect class="lab-cover test-cover" x="21" y="20" width="14" height="54"/>
+                <g class="lab-g"><circle cx="28" cy="26" r="5"/><circle cx="28" cy="40" r="5"/><circle cx="28" cy="54" r="5"/><circle cx="28" cy="68" r="5"/></g>
+                <rect class="lab-gf" x="40" y="24" width="50" height="4" rx="2"/>
+                <rect class="lab-gf" x="40" y="38" width="38" height="4" rx="2"/>
+                <rect class="lab-gf" x="40" y="52" width="46" height="4" rx="2"/>
+                <rect class="lab-gf" x="40" y="66" width="30" height="4" rx="2"/>
+                <rect class="lab-g2f" x="22" y="81" width="76" height="4" rx="2"/>
+                <rect class="lab-af test-bar" x="22" y="81" width="76" height="4" rx="2"/>
+              </svg>
+              <span class="lab-label">Tests</span>
+            </li>
+            <!-- App: Feed scrollt, Finger wischt -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs><clipPath id="lab-app-clip"><rect x="43" y="25" width="34" height="58" rx="3"/></clipPath></defs>
+                <rect class="lab-panel lab-g" x="40" y="14" width="40" height="74" rx="7"/>
+                <path class="lab-g" d="M55 19.5h10"/>
+                <g clip-path="url(#lab-app-clip)">
+                  <g class="app-feed">
+                    <rect class="lab-gf" x="45" y="27" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-a lab-a-soft" x="45" y="42" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-gf" x="45" y="57" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-gf" x="45" y="72" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-a lab-a-soft" x="45" y="87" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-gf" x="45" y="102" width="30" height="12" rx="2.5"/>
+                    <rect class="lab-gf" x="45" y="117" width="30" height="12" rx="2.5"/>
+                  </g>
+                  <circle class="lab-af app-swipe" cx="66" cy="74" r="3.5"/>
+                </g>
+              </svg>
+              <span class="lab-label">App</span>
+            </li>
+            <!-- KI: Frage, Tippen, Antwort -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect class="lab-gf ki-q" x="48" y="20" width="54" height="14" rx="7"/>
+                <g class="ki-dots">
+                  <circle class="lab-af" cx="26" cy="54" r="2.4"/><circle class="lab-af" cx="34" cy="54" r="2.4"/><circle class="lab-af" cx="42" cy="54" r="2.4"/>
+                </g>
+                <g class="ki-a">
+                  <path class="lab-af" d="M16 40l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z"/>
+                  <rect class="lab-a lab-a-soft" x="22" y="44" width="70" height="36" rx="8"/>
+                  <rect class="lab-af" x="30" y="53" width="50" height="3.5" rx="1.75"/>
+                  <rect class="lab-af" x="30" y="61" width="42" height="3.5" rx="1.75"/>
+                  <rect class="lab-af lab-dim" x="30" y="69" width="28" height="3.5" rx="1.75"/>
+                </g>
+              </svg>
+              <span class="lab-label">KI-Assistent</span>
+            </li>
+            <!-- Launch: Upload in die Cloud, dann Haken -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <path class="lab-g" d="M75.5 57H53.4a18.2 18.2 0 1 1 17.4-23.4h4.7a11.7 11.7 0 1 1 0 23.4Z"/>
+                <g class="dep-done">
+                  <path class="lab-a" d="M75.5 57H53.4a18.2 18.2 0 1 1 17.4-23.4h4.7a11.7 11.7 0 1 1 0 23.4Z"/>
+                  <path class="lab-a lab-thick" d="M54 43l5 5 10-10"/>
+                </g>
+                <g class="dep-arrow-wrap"><path class="lab-a lab-thick dep-arrow" d="M60 80V64M53 71l7-7 7 7"/></g>
+                <rect class="lab-g2f" x="34" y="86" width="52" height="4" rx="2"/>
+                <rect class="lab-af dep-bar" x="34" y="86" width="52" height="4" rx="2"/>
+              </svg>
+              <span class="lab-label">Launch</span>
+            </li>
+            <!-- Backups: Daten fließen von links nach rechts, Sicherung füllt sich -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs><clipPath id="lab-bk-clip"><path d="M74 36v36a14 5 0 0 0 28 0V36a14 5 0 0 0-28 0Z"/></clipPath></defs>
+                <g clip-path="url(#lab-bk-clip)"><rect class="lab-af lab-soft bk-fill" x="74" y="31" width="28" height="47"/></g>
+                <g class="lab-g">
+                  <ellipse cx="32" cy="36" rx="14" ry="5"/><path d="M18 36v36a14 5 0 0 0 28 0V36M18 54a14 5 0 0 0 28 0"/>
+                  <ellipse cx="88" cy="36" rx="14" ry="5"/><path d="M74 36v36a14 5 0 0 0 28 0V36"/>
+                </g>
+                <path class="lab-g lab-dash" d="M51 54h18"/>
+                <circle class="lab-af bk-dot" cx="51" cy="54" r="2.2"/>
+                <circle class="lab-af bk-dot" cx="51" cy="54" r="2.2" style="animation-delay:-0.5s"/>
+                <circle class="lab-af bk-dot" cx="51" cy="54" r="2.2" style="animation-delay:-1s"/>
+                <path class="lab-a lab-thick bk-ok" d="M82 20l4 4 8-8"/>
+              </svg>
+              <span class="lab-label">Backups</span>
+            </li>
+            <!-- Sicherheit: Scan läuft über das Schild, dann grün -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs><clipPath id="lab-sec-clip"><path d="M60 16l24 9v21c0 16-11 28-24 34-13-6-24-18-24-34V25Z"/></clipPath></defs>
+                <path class="lab-g" d="M60 16l24 9v21c0 16-11 28-24 34-13-6-24-18-24-34V25Z"/>
+                <g class="lab-g"><rect x="51" y="45" width="18" height="14" rx="2.5"/><path d="M54 45v-4a6 6 0 0 1 12 0v4"/></g>
+                <g class="sec-ok">
+                  <path class="lab-a lab-a-soft" d="M60 16l24 9v21c0 16-11 28-24 34-13-6-24-18-24-34V25Z"/>
+                  <rect class="lab-af" x="51" y="45" width="18" height="14" rx="2.5"/><path class="lab-a" d="M54 45v-4a6 6 0 0 1 12 0v4"/>
+                </g>
+                <g clip-path="url(#lab-sec-clip)">
+                  <g class="sec-scan"><rect class="lab-af lab-soft" x="34" y="4" width="52" height="12"/><rect class="lab-af" x="34" y="15" width="52" height="1.6"/></g>
+                </g>
+              </svg>
+              <span class="lab-label">Sicherheit</span>
+            </li>
+            <!-- Erreichbarkeit: Pulslinie zeichnet sich, Punkt pulsiert -->
+            <li class="lab-tile">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <path class="lab-g lab-faint" d="M16 34h88M16 52h88M16 70h88"/>
+                <path class="lab-a lab-thick up-line" pathLength="100" d="M16 52h22l5-14 6 28 5-20 4 6h20l3-5 3 5h14"/>
+                <circle class="lab-a up-ring" cx="98" cy="52" r="3.5"/>
+                <circle class="lab-af" cx="98" cy="52" r="3"/>
+              </svg>
+              <span class="lab-label">Erreichbarkeit</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- 4 · Für wen -->
     <section class="section" id="fuer-wen" aria-labelledby="fuer-wen-title">
       <div class="container">

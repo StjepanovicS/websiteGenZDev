@@ -334,10 +334,11 @@ a:hover { text-decoration-thickness: 2px; }
 .hero-facts svg, .check-list li::before { flex: none; }
 .hero-facts svg { width: 18px; height: 18px; fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- App-Showcase: Smartphone dreht sich beim Scrollen ----------
+/* ---------- App-Showcase: Smartphone-Animation läuft von selbst ----------
    Ohne .motion (kein JS, reduzierte Bewegung) steht alles im Endzustand.
-   Mit .motion liefert das CSS den Startzustand, main.js treibt die Szene
-   per transform/opacity direkt am Element – nichts davon löst Layout aus. */
+   Mit .motion liefert das CSS den Startzustand, main.js spielt die Szene
+   zeitgesteuert ab (nicht per Scroll), sobald sie im Bild ist –
+   per transform/opacity direkt am Element, nichts davon löst Layout aus. */
 
 .showcase { position: relative; }
 .showcase-sticky { padding: var(--section-y) 0; }
@@ -451,15 +452,9 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .screen-input { margin-top: 0.8em; padding: 0.7em 1em; border-radius: 999px; background: #161c23; color: #8f9aa4; font-size: 0.9em; }
 
-/* Startzustand, wenn die Szene animiert wird */
-.motion .showcase { height: 330vh; }
-.motion .showcase-sticky {
-  position: sticky; top: 0;
-  height: 100vh; height: 100svh;
-  display: flex; align-items: center;
-  padding: 72px 0 0;
-  overflow: hidden;
-}
+/* Startzustand, wenn die Szene animiert wird. Der Abschnitt ist normal hoch,
+   man scrollt ganz normal weiter. overflow: das gedrehte Handy ragt sonst heraus. */
+.motion .showcase-sticky { overflow: hidden; }
 /* 0.6 statt schwächer: auch inaktive Schritte bleiben lesbar (Kontrast ≥ 4.5:1) */
 .motion .showcase-steps li { opacity: 0.6; }
 .motion .showcase-steps li.is-active { opacity: 1; }
@@ -698,25 +693,58 @@ a:hover { text-decoration-thickness: 2px; }
 /* Bühne: Video in der Mitte, zwei Screenshots dahinter links und rechts */
 .media-app { padding-block: 28px; }
 .media-app > * { grid-area: 1 / 1; }
-.shot-phone {
-  width: 150px; aspect-ratio: 1290 / 2796;
-  padding: 5px; border-radius: 22px;
-  background: #1c2129;
-  box-shadow: inset 0 0 0 1.5px #4b535e, 0 30px 50px -20px rgb(0 0 0 / 0.75);
+/* iPhone-Rahmen (Maße wie iPhone 15/16 Pro): Titan-Rand, schwarzer Glasrand,
+   Dynamic Island und Seitentasten. Alles skaliert über --w (Gerätebreite). */
+.shot-phone, .shot-video {
+  --w: 150px;
+  position: relative;
+  width: var(--w); aspect-ratio: 71.6 / 146.6;
+  padding: calc(var(--w) * 0.035);
+  border: calc(var(--w) * 0.014) solid transparent;
+  border-radius: calc(var(--w) * 0.175);
+  background:
+    linear-gradient(#050608, #050608) padding-box,
+    linear-gradient(145deg, #a7adb5 0%, #4a4f57 20%, #8f959d 46%, #34383f 72%, #9ca2aa 100%) border-box;
+  box-shadow: 0 30px 50px -20px rgb(0 0 0 / 0.75);
 }
-.shot-phone img { display: block; width: 100%; height: 100%; border-radius: 17px; object-fit: cover; object-position: top; }
+/* Seitentasten: links Action-Taste und Lautstärke, rechts Seitentaste */
+.shot-phone::before, .shot-video::before {
+  content: ""; position: absolute; z-index: -1;
+  inset: 0 calc(var(--w) * -0.03);
+  --key: calc(var(--w) * 0.016);
+  background:
+    linear-gradient(90deg, #3f444b, #8d939b) 0 calc(var(--w) * 0.34) / var(--key) calc(var(--w) * 0.075) no-repeat,
+    linear-gradient(90deg, #3f444b, #8d939b) 0 calc(var(--w) * 0.5) / var(--key) calc(var(--w) * 0.15) no-repeat,
+    linear-gradient(90deg, #3f444b, #8d939b) 0 calc(var(--w) * 0.69) / var(--key) calc(var(--w) * 0.15) no-repeat,
+    linear-gradient(90deg, #8d939b, #3f444b) 100% calc(var(--w) * 0.56) / var(--key) calc(var(--w) * 0.24) no-repeat;
+  pointer-events: none;
+}
+/* Dynamic Island */
+.shot-phone::after, .shot-video::after {
+  content: ""; position: absolute; z-index: 2;
+  top: calc(var(--w) * 0.068); left: 50%;
+  width: calc(var(--w) * 0.29); height: calc(var(--w) * 0.085);
+  transform: translateX(-50%);
+  border-radius: 999px; background: #000;
+}
+.shot-phone img, .shot-video video {
+  display: block; width: 100%; height: 100%;
+  border-radius: calc(var(--w) * 0.126);
+}
+.shot-phone img { object-fit: cover; object-position: top; }
 .shot-side { filter: brightness(0.6) saturate(0.9); }
 .shot-left { transform: translateX(-74%) rotate(-7deg) scale(0.92); }
 .shot-right { transform: translateX(74%) rotate(7deg) scale(0.92); }
 
+/* Werbevideo ist 9:16, der iPhone-Bildschirm höher: oben und unten füllt
+   dasselbe Schwarz wie der Videohintergrund, so wirkt es wie ein Bildschirm */
 .shot-video {
-  position: relative; z-index: 1;
-  width: 190px; aspect-ratio: 9 / 16;
-  border-radius: 20px; overflow: hidden;
-  background: #07050b;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 40px 60px -24px rgb(0 0 0 / 0.8);
+  --w: 190px;
+  z-index: 1;
+  box-shadow: 0 40px 60px -24px rgb(0 0 0 / 0.8);
 }
-.shot-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.shot-video video { object-fit: contain; background: #07050b; }
+.shot-video .video-toggle { right: calc(var(--w) * 0.08); bottom: calc(var(--w) * 0.08); width: 30px; height: 30px; z-index: 3; }
 .video-toggle {
   position: absolute; right: 10px; bottom: 10px;
   display: grid; place-items: center;
@@ -888,6 +916,216 @@ a:hover { text-decoration-thickness: 2px; }
 /* Puls nur, solange der Hero sichtbar ist */
 .status-card[data-offscreen="true"] .status-dot::after { animation-play-state: paused; }
 
+/* ---------- Hinter den Kulissen: animiertes Kachel-Raster ----------
+   Grundwerte = fertiges Standbild. Die Keyframes beschreiben nur die Bewegung.
+   Bewegt werden fast nur transform und opacity, dazu einmal stroke-dashoffset. */
+
+.lab {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
+.lab-copy .lead { margin-top: 20px; max-width: 46ch; }
+
+.lab-stage {
+  --lab-tile: #0a0e13;
+  --lab-panel: #121821;
+  --lab-grey: rgb(255 255 255 / 0.26);
+  --lab-grey-fill: rgb(255 255 255 / 0.14);
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line), 0 40px 60px -32px rgb(0 0 0 / 0.8);
+}
+.lab-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; }
+.lab-tile {
+  position: relative;
+  aspect-ratio: 1;
+  background-color: var(--lab-tile);
+  background-image:
+    radial-gradient(circle at 50% 42%, rgb(93 245 137 / 0.05), transparent 65%),
+    linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: auto, 12px 12px, 12px 12px;
+  background-position: center, -1px -1px, -1px -1px;
+}
+.lab-tile svg { display: block; width: 100%; height: 100%; }
+.lab-label {
+  position: absolute; left: 10px; bottom: 8px;
+  color: var(--muted);
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* Zeichen-Bausteine */
+.lab-tile svg * { transform-box: fill-box; }
+.lab-g { fill: none; stroke: var(--lab-grey); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lab-faint { stroke: rgb(255 255 255 / 0.07); }
+.lab-dash { stroke-dasharray: 2 4; }
+.lab-gf { fill: var(--lab-grey-fill); }
+.lab-g2f { fill: rgb(255 255 255 / 0.08); }
+.lab-panel { fill: var(--lab-panel); }
+.lab-cover { fill: var(--lab-panel); }
+.lab-a { fill: none; stroke: var(--mint); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lab-a-soft { fill: rgb(93 245 137 / 0.1); }
+.lab-af { fill: var(--mint); }
+.lab-soft { opacity: 0.18; }
+.lab-dim { opacity: 0.55; }
+.lab-thick { stroke-width: 2.4; }
+.lab-tick { fill: none; stroke: var(--lab-tile); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Code: Abdeckung schrumpft zeilenweise nach unten und gibt die Zeilen frei */
+.code-cover { transform-origin: bottom; transform: scaleY(0); animation: lab-code 6s infinite; }
+@keyframes lab-code {
+  0% { transform: scaleY(1); animation-timing-function: steps(6, end); }
+  62%, 86% { transform: scaleY(0); animation-timing-function: cubic-bezier(0.55, 0, 0.75, 0.2); }
+  100% { transform: scaleY(1); }
+}
+
+/* Tests: Haken nacheinander, Balken parallel */
+.test-cover { transform-origin: bottom; transform: scaleY(0); animation: lab-tests 5s infinite; }
+@keyframes lab-tests {
+  0%, 6% { transform: scaleY(1); animation-timing-function: steps(4, end); }
+  62%, 90% { transform: scaleY(0); }
+  91%, 100% { transform: scaleY(1); }
+}
+.test-bar { transform-origin: left; animation: lab-test-bar 5s infinite; }
+@keyframes lab-test-bar {
+  0%, 6% { transform: scaleX(0); }
+  62%, 86% { transform: scaleX(1); opacity: 1; }
+  90% { transform: scaleX(1); opacity: 0; }
+  91%, 100% { transform: scaleX(0); opacity: 1; }
+}
+
+/* App: Feed rückt in drei Schritten um je eine Karte weiter, Finger wischt dazu */
+.app-feed { animation: lab-feed 6s infinite; }
+@keyframes lab-feed {
+  0%, 18% { transform: translateY(0); animation-timing-function: var(--ease-out); }
+  33%, 51% { transform: translateY(-15px); animation-timing-function: var(--ease-out); }
+  66%, 84% { transform: translateY(-30px); animation-timing-function: var(--ease-out); }
+  100% { transform: translateY(-45px); }
+}
+.app-swipe { opacity: 0; animation: lab-swipe 6s infinite; }
+@keyframes lab-swipe {
+  0%, 14% { opacity: 0; transform: translateY(0); }
+  18% { opacity: 0.85; transform: translateY(0); }
+  31% { opacity: 0; transform: translateY(-18px); }
+  32%, 47% { opacity: 0; transform: translateY(0); }
+  51% { opacity: 0.85; transform: translateY(0); }
+  64% { opacity: 0; transform: translateY(-18px); }
+  65%, 80% { opacity: 0; transform: translateY(0); }
+  84% { opacity: 0.85; transform: translateY(0); }
+  97%, 100% { opacity: 0; transform: translateY(-18px); }
+}
+
+/* KI: Frage, Tipp-Punkte, Antwort */
+.ki-q { animation: lab-ki-q 6s infinite; }
+@keyframes lab-ki-q {
+  0% { opacity: 0; transform: translateY(6px); }
+  8%, 90% { opacity: 1; transform: none; animation-timing-function: ease; }
+  98%, 100% { opacity: 0; transform: none; }
+}
+.ki-dots { opacity: 0; animation: lab-ki-dots 6s infinite; }
+@keyframes lab-ki-dots {
+  0%, 14% { opacity: 0; }
+  18%, 40% { opacity: 1; }
+  43%, 100% { opacity: 0; }
+}
+.ki-dots circle { transform-origin: center; animation: lab-bounce 0.9s ease-in-out infinite; }
+.ki-dots circle:nth-child(2) { animation-delay: 0.15s; }
+.ki-dots circle:nth-child(3) { animation-delay: 0.3s; }
+@keyframes lab-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.ki-a { transform-origin: left bottom; animation: lab-ki-a 6s infinite; }
+@keyframes lab-ki-a {
+  0%, 42% { opacity: 0; transform: translateY(6px) scale(0.94); animation-timing-function: var(--ease-out); }
+  52%, 90% { opacity: 1; transform: none; animation-timing-function: ease; }
+  98%, 100% { opacity: 0; transform: none; }
+}
+
+/* Launch: Pfeil fährt in die Cloud, Balken füllt sich, dann Haken */
+.dep-arrow { animation: lab-arrow 1.25s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes lab-arrow {
+  0% { opacity: 0; transform: translateY(10px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+.dep-arrow-wrap { animation: lab-arrow-wrap 5s infinite; }
+@keyframes lab-arrow-wrap {
+  0%, 66% { opacity: 1; }
+  70%, 96% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.dep-bar { transform-origin: left; animation: lab-dep-bar 5s infinite; }
+@keyframes lab-dep-bar {
+  0% { transform: scaleX(0); }
+  68%, 90% { transform: scaleX(1); opacity: 1; }
+  96% { transform: scaleX(1); opacity: 0; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+.dep-done { transform-origin: center; animation: lab-dep-done 5s infinite; }
+@keyframes lab-dep-done {
+  0%, 68% { opacity: 0; transform: scale(0.9); animation-timing-function: var(--ease-out); }
+  76%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; transform: none; }
+}
+
+/* Backups: Datenpunkte fließen, Sicherung füllt sich, Haken */
+.bk-dot { opacity: 0; animation: lab-bk-dot 1.5s linear infinite; }
+@keyframes lab-bk-dot {
+  0% { opacity: 0; transform: translateX(0); }
+  20%, 75% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(18px); }
+}
+.bk-fill { transform-origin: bottom; animation: lab-bk-fill 6s infinite; }
+@keyframes lab-bk-fill {
+  0% { transform: scaleY(0); }
+  74%, 90% { transform: scaleY(1); opacity: 1; }
+  98%, 100% { transform: scaleY(0); opacity: 0; }
+}
+.bk-ok { transform-origin: center; animation: lab-bk-ok 6s infinite; }
+@keyframes lab-bk-ok {
+  0%, 74% { opacity: 0; transform: scale(0.6); animation-timing-function: var(--ease-out); }
+  80%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; transform: none; }
+}
+
+/* Sicherheit: Scanlinie läuft über das Schild, danach leuchtet es auf */
+.sec-scan { opacity: 0; animation: lab-scan 5s infinite; }
+@keyframes lab-scan {
+  0% { opacity: 0; transform: translateY(0); animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  6% { opacity: 1; }
+  54% { opacity: 1; transform: translateY(68px); }
+  60%, 100% { opacity: 0; transform: translateY(68px); }
+}
+.sec-ok { transform-origin: center; animation: lab-sec-ok 5s infinite; }
+@keyframes lab-sec-ok {
+  0%, 54% { opacity: 0; transform: scale(0.96); animation-timing-function: var(--ease-out); }
+  62%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; transform: none; }
+}
+
+/* Erreichbarkeit: Linie zeichnet sich, Punkt pulsiert */
+.up-line { stroke-dasharray: 100; stroke-dashoffset: 0; animation: lab-up-line 6s infinite; }
+@keyframes lab-up-line {
+  0% { stroke-dashoffset: 100; opacity: 1; animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1); }
+  70%, 88% { stroke-dashoffset: 0; opacity: 1; }
+  97% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 100; opacity: 0; }
+}
+.up-ring { transform-origin: center; opacity: 0; animation: lab-ring 1.6s var(--ease-out) infinite; }
+@keyframes lab-ring {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0; transform: scale(3.2); }
+}
+
+/* Außer Sicht: alles einfrieren */
+.lab-stage.is-offscreen * { animation-play-state: paused !important; }
+
 /* ---------- Responsiv ---------- */
 
 @media (max-width: 1080px) {
@@ -895,16 +1133,16 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 @media (max-width: 899px) {
+  .lab { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .showcase-grid, .split, .faq-grid, .contact-grid, .pricing, .about, .project.project-wide { grid-template-columns: minmax(0, 1fr); }
   .project-wide .project-media { min-height: 0; aspect-ratio: auto; padding-block: 24px; }
-  .shot-video { width: 160px; }
-  .shot-phone { width: 126px; }
+  .shot-video { --w: 160px; }
+  .shot-phone { --w: 126px; }
   .about-photo { max-width: 280px; }
   .promise { flex-direction: column; align-items: flex-start; }
   .status-card { max-width: 480px; }
-  .device-stage { --pw: min(230px, 54vw, 27svh); min-height: calc(var(--pw) * 2.15); }
-  .motion .showcase-sticky { align-items: flex-start; padding-top: 96px; }
-  .motion .showcase-grid { gap: 8px; }
+  .device-stage { --pw: min(230px, 54vw); min-height: calc(var(--pw) * 2.15); }
+  .showcase-grid { gap: 24px; }
   .motion .showcase-copy h2 { font-size: clamp(1.5rem, 6vw, 2rem); }
   /* mobil nur der aktive Schritt, alle liegen übereinander */
   .motion .showcase-steps { margin-top: 16px; }
@@ -916,7 +1154,6 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Handy quer (wenig Höhe): Text und Smartphone nebeneinander, Smartphone nach Bildschirmhöhe */
 @media (max-height: 540px) and (orientation: landscape) and (min-width: 600px) {
-  .motion .showcase-sticky { align-items: center; padding-top: 72px; }
   .motion .showcase-grid { grid-template-columns: minmax(0, 1fr) auto; gap: 32px; }
   .motion .showcase-copy h2 { font-size: 1.5rem; }
   .motion .showcase-steps { margin-top: 12px; }
@@ -936,6 +1173,12 @@ a:hover { text-decoration-thickness: 2px; }
   .faq-body { padding-right: 0; }
 }
 
+/* schmale Handys: 2 Spalten, Kacheln etwas flacher, damit das Raster nicht zu hoch wird */
+@media (max-width: 559px) {
+  .lab-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lab-tile { aspect-ratio: 4 / 3; }
+}
+
 /* ---------- Reduzierte Bewegung: Bewegung raus, Überblendung bleibt ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -947,4 +1190,6 @@ a:hover { text-decoration-thickness: 2px; }
   .faq details[open] .faq-body { animation: none; }
   .btn:active { transform: none; }
   .nav-list { transform: none !important; }
+  /* Kachel-Raster: Standbild für alle, die im System „Bewegung reduzieren“ eingestellt haben */
+  .lab-stage * { animation: none !important; }
 }

@@ -22,9 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }).observe(statusCard);
   }
 
-  // App-Showcase: Scroll-Fortschritt 0…1 durch die Sektion steuert
-  // Drehung → Bildschirm an (Logo) → App-Inhalt → Chat-Nachrichten.
-  // Läuft nur, solange die Sektion im Bild ist, max. ein Frame pro Scroll.
+  // App-Showcase: läuft von selbst ab, sobald die Sektion im Bild ist
+  // (früher per Scroll – da dachten viele, die Seite sei zu Ende).
+  // Fortschritt p 0…1 über die Zeit: Drehung → Bildschirm an (Logo) →
+  // App-Inhalt → Chat-Nachrichten. Danach kurz stehen lassen, Bildschirm
+  // ausblenden und ab „Bildschirm aus“ wiederholen; gedreht wird nur einmal.
+  // Außerhalb des Bildes oder im Hintergrund-Tab pausiert die Szene.
   const showcase = document.querySelector("[data-showcase]");
   if (showcase && document.documentElement.classList.contains("motion")) {
     const device = showcase.querySelector("[data-device]");
@@ -39,29 +42,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const range = (p, from, to) => clamp((p - from) / (to - from));
     const smooth = (t) => t * t * (3 - 2 * t);
 
+    const PLAY = 8000; // ms für p 0 → 1
+    const HOLD = 3500; // Endbild stehen lassen
+    const FADE = 500;  // Bildschirm aus
+    const LOOP_FROM = 0.2; // Wiederholung: Handy steht schon, Bildschirm dunkel
+
     let activeStep = 0;
-    let ticking = false;
+    let spun = false; // Drehung nur beim ersten Durchlauf
+    let p = 0, phase = "play", phaseTime = 0;
 
-    const render = () => {
-      ticking = false;
-      const rect = showcase.getBoundingClientRect();
-      const p = clamp(-rect.top / (rect.height - window.innerHeight));
-
-      const t = smooth(range(p, 0, 0.36)); // nach vorn drehen
+    const render = (dim = 1) => {
+      if (p >= 0.36) spun = true;
+      const t = spun ? 1 : smooth(range(p, 0, 0.36)); // nach vorn drehen
       const k = 1 - t;
-      const lift = window.innerWidth < 900 ? 3 : 8; // mobil weniger Weg, sonst ragt das Handy unten raus
+      const lift = window.innerWidth < 900 ? 3 : 8;
       device.style.transform =
         `translateY(${k * lift}vh) rotateX(${k * 22}deg) rotateY(${k * -34}deg) rotateZ(${k * -10}deg) scale(${0.86 + t * 0.14})`;
       glass.style.transform = `translateX(${(t - 0.5) * 70}%)`;
 
       const power = range(p, 0.32, 0.38); // Bildschirm geht an: Logo
-      boot.style.opacity = power * (1 - range(p, 0.42, 0.47));
-      screen.style.opacity = range(p, 0.43, 0.49); // App erscheint
-      glow.style.opacity = range(p, 0.32, 0.46);
+      boot.style.opacity = power * (1 - range(p, 0.42, 0.47)) * dim;
+      screen.style.opacity = range(p, 0.43, 0.49) * dim; // App erscheint
+      glow.style.opacity = range(p, 0.32, 0.46) * dim;
 
       bubbles.forEach((el, i) => {
         const s = smooth(range(p, 0.52 + i * 0.09, 0.59 + i * 0.09));
-        el.style.opacity = s;
+        el.style.opacity = s * dim;
         el.style.transform = `translateY(${(1 - s) * 12}px) scale(${0.96 + s * 0.04})`;
       });
 
@@ -72,22 +78,39 @@ document.addEventListener("DOMContentLoaded", () => {
         activeStep = step;
       }
     };
-    const requestRender = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(render);
+
+    let running = false, last = 0, raf = 0;
+    const tick = (now) => {
+      const dt = Math.min(now - last, 50); // nach Tab-Wechsel nicht springen
+      last = now;
+      phaseTime += dt;
+      if (phase === "play") {
+        p = Math.min(1, p + dt / PLAY);
+        render();
+        if (p >= 1) { phase = "hold"; phaseTime = 0; }
+      } else if (phase === "hold") {
+        if (phaseTime >= HOLD) { phase = "fade"; phaseTime = 0; }
+      } else {
+        const f = clamp(phaseTime / FADE);
+        render(1 - f);
+        if (f >= 1) { p = LOOP_FROM; phase = "play"; phaseTime = 0; render(); }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const setRunning = (on) => {
+      if (on === running) return;
+      running = on;
+      if (on) { last = performance.now(); raf = requestAnimationFrame(tick); }
+      else cancelAnimationFrame(raf);
     };
 
-    let listening = false;
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting === listening) return;
-      listening = entry.isIntersecting;
-      const method = listening ? "addEventListener" : "removeEventListener";
-      window[method]("scroll", requestRender, { passive: true });
-      window[method]("resize", requestRender);
-      if (listening) requestRender();
-    }).observe(showcase);
     render();
+    let visible = false;
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      setRunning(visible && !document.hidden);
+    }, { threshold: 0.3 }).observe(showcase);
+    document.addEventListener("visibilitychange", () => setRunning(visible && !document.hidden));
   }
 
   // Mobile Navigation
@@ -227,6 +250,13 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (visible && !userPaused) play();
       });
     }
+  }
+
+  // Kachel-Raster „Hinter den Kulissen“: läuft dauerhaft, wird aber außerhalb
+  // des Bildes eingefroren, damit es beim Scrollen keine Rechenzeit kostet.
+  const lab = document.querySelector("[data-lab]");
+  if (lab && hasIO) {
+    new IntersectionObserver(([e]) => lab.classList.toggle("is-offscreen", !e.isIntersecting)).observe(lab);
   }
 
   const year = document.querySelector("[data-year]");
