@@ -231,6 +231,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Leistungs-Grafiken bauen sich einmal auf, sobald die jeweilige Karte ins Bild kommt
+  if (document.documentElement.classList.contains("motion")) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("is-in");
+        io.unobserve(e.target);
+      }
+    }, { threshold: 0.35 });
+    document.querySelectorAll("#leistungen .card").forEach((card) => io.observe(card));
+  }
+
   // Kachel-Raster „Hinter den Kulissen“: läuft dauerhaft, wird aber außerhalb
   // des Bildes eingefroren, damit es beim Scrollen keine Rechenzeit kostet.
   const lab = document.querySelector("[data-lab]");

@@ -510,6 +510,33 @@ a:hover { text-decoration-thickness: 2px; }
   .card:hover .card-art svg { transform: scale(1.04); }
 }
 
+/* Aufbau der Grafiken: einmal, sobald die Karten ins Bild kommen (main.js setzt .is-in).
+   Nur mit .motion; ohne JS oder bei reduzierter Bewegung steht das fertige Bild da.
+   Versteckt wird nur über transform/stroke, damit die eigene Deckkraft (art-dim) bleibt. */
+/* nebeneinander leicht versetzt; untereinander (Handy) startet jede Karte für sich */
+@media (min-width: 640px) {
+  .card:nth-child(2) .card-art { --base: 120ms; }
+  .card:nth-child(3) .card-art { --base: 240ms; }
+  .card:nth-child(4) .card-art { --base: 360ms; }
+}
+.card-art :is(.a-pop, .a-grow, .a-up) { transform-box: fill-box; transform-origin: center; }
+.card-art .a-grow, .card-art .a-left { transform-origin: left center; }
+.motion .card-art .a-pop { transform: scale(0); }
+.motion .card-art .a-grow { transform: scaleX(0); }
+.motion .card-art .a-up { opacity: 0; transform: translateY(12px); }
+.motion .card-art .a-draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.motion .is-in.card .card-art :is(.a-pop, .a-grow, .a-up, .a-draw) {
+  animation: art-up 520ms var(--ease-out) calc(var(--base, 0ms) + var(--d, 0ms)) both;
+}
+.motion .is-in .card-art .a-pop { animation-name: art-pop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+.motion .is-in .card-art .a-draw { animation-name: art-draw; animation-duration: 420ms; }
+.motion .is-in .card-art .a-grow { animation-name: art-grow; }
+.motion .is-in .card-art .a-up { animation-name: art-up; }
+@keyframes art-pop { from { transform: scale(0); } to { transform: none; } }
+@keyframes art-grow { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes art-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes art-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
 /* Rundum-Service: Monatsbericht als Beispiel */
 .status-card {
   margin: 0;
