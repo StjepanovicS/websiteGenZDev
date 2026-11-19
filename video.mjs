@@ -5,28 +5,35 @@
 // Aufruf: npm run video
 //
 // - ohne Ton (läuft stumm und automatisch, das erlauben Browser nur ohne Ton)
-// - 360 × 640 px, H.264, für schnelles Starten optimiert (faststart)
-// - endet vor der Einblendung „Jetzt verfügbar“ mit Store-Badges,
-//   solange die App noch nicht veröffentlicht ist
+// - 360 × 774 px, H.264, für schnelles Starten optimiert (faststart)
+// - volle Länge, inklusive Abspann mit App-Store- und Google-Play-Badges
 
 import { execFileSync } from "node:child_process";
 import { mkdirSync } from "node:fs";
 import ffmpeg from "@ffmpeg-installer/ffmpeg";
 import sharp from "sharp";
 
-// END: Schnitt vor „Jetzt verfügbar“, POSTER_AT: Sekunde mit gut sichtbarem App-Bildschirm
+// POSTER_AT: Sekunde mit gut sichtbarem App-Bildschirm
 const VIDEOS = [
-  { lang: "de", input: "C:/Users/sasas/Desktop/videoGenZ.mp4", END: "24.7", POSTER_AT: "8" },
-  { lang: "en", input: "C:/Users/sasas/Desktop/App_Development/StayInContact-Werbevideo-English.mp4", END: "27.8", POSTER_AT: "9" },
+  { lang: "de", input: "C:/Users/sasas/Desktop/videoGenZ.mp4", POSTER_AT: "8" },
+  { lang: "en", input: "C:/Users/sasas/Desktop/App_Development/StayInContact-Werbevideo-English.mp4", POSTER_AT: "9" },
 ];
+
+// Das Original ist 9:16, der iPhone-Bildschirm auf der Webseite höher (≈ 360 × 774).
+// Statt zu beschneiden wird oben und unten je 67 px angesetzt: die äußerste Bildzeile,
+// gestreckt und weichgezeichnet. So läuft der Hintergrund nahtlos weiter, kein Text geht verloren.
+const FIT = "scale=360:640:flags=lanczos,split=3[t][m][b];"
+  + "[t]crop=360:4:0:0,scale=360:67,setsar=1,boxblur=16:2:16:2[top];"
+  + "[b]crop=360:4:0:636,scale=360:67,setsar=1,boxblur=16:2:16:2[bot];"
+  + "[top][m][bot]vstack=inputs=3,setsar=1";
 
 mkdirSync("media", { recursive: true });
 
-for (const { lang, input, END, POSTER_AT } of VIDEOS) {
+for (const { lang, input, POSTER_AT } of VIDEOS) {
   execFileSync(ffmpeg.path, [
     "-hide_banner", "-loglevel", "error", "-y",
-    "-i", input, "-t", END, "-an",
-    "-vf", "scale=360:640:flags=lanczos,fps=30",
+    "-i", input, "-an",
+    "-filter_complex", `${FIT},fps=30`,
     "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
     "-crf", "28", "-preset", "slow", "-movflags", "+faststart",
     `media/stayincontact-${lang}.mp4`,
@@ -34,8 +41,8 @@ for (const { lang, input, END, POSTER_AT } of VIDEOS) {
   // WebM (VP9) als Ausweich-Format für Browser ohne H.264
   execFileSync(ffmpeg.path, [
     "-hide_banner", "-loglevel", "error", "-y",
-    "-i", input, "-t", END, "-an",
-    "-vf", "scale=360:640:flags=lanczos,fps=30",
+    "-i", input, "-an",
+    "-filter_complex", `${FIT},fps=30`,
     "-c:v", "libvpx-vp9", "-b:v", "0", "-crf", "40", "-row-mt", "1", "-deadline", "good", "-cpu-used", "2",
     `media/stayincontact-${lang}.webm`,
   ]);
@@ -43,7 +50,7 @@ for (const { lang, input, END, POSTER_AT } of VIDEOS) {
   const png = execFileSync(ffmpeg.path, [
     "-hide_banner", "-loglevel", "error",
     "-ss", POSTER_AT, "-i", input, "-frames:v", "1",
-    "-vf", "scale=360:640:flags=lanczos", "-f", "image2pipe", "-vcodec", "png", "-",
+    "-filter_complex", FIT, "-f", "image2pipe", "-vcodec", "png", "-",
   ]);
   await sharp(png).webp({ quality: 78 }).toFile(`media/stayincontact-${lang}-poster.webp`);
   console.log(`media/stayincontact-${lang}.mp4 fertig`);

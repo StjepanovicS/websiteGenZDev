@@ -736,8 +736,8 @@ a:hover { text-decoration-thickness: 2px; }
 .shot-left { transform: translateX(-74%) rotate(-7deg) scale(0.92); }
 .shot-right { transform: translateX(74%) rotate(7deg) scale(0.92); }
 
-/* Werbevideo ist 9:16, der iPhone-Bildschirm höher: das Video füllt den
-   ganzen Bildschirm, links und rechts wird ein schmaler Rand ohne Inhalt abgeschnitten */
+/* Werbevideo ist schon auf die Bildschirmform gebracht (360 × 774, video.mjs),
+   cover gleicht nur noch Rundungsreste aus, ohne Inhalt abzuschneiden */
 .shot-video {
   --w: 190px;
   z-index: 1;
