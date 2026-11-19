@@ -113,7 +113,6 @@ export const pairs = [
   [`<li>Monatlich kündbar</li>`, `<li>Cancel any month</li>`],
   [`Betreuung anfragen`, `Ask about support`],
   [`Ihr Angebot in 48 Stunden`, `Your quote within 48 hours`],
-  [`Erstgespräch vereinbaren`, `Book a first call`],
   [`Als Kleinunternehmer gemäß § 19 UStG berechne ich keine Umsatzsteuer.`, `As a small business under section 19 of the German VAT Act (UStG), I do not charge VAT.`],
 
   // FAQ
@@ -183,6 +182,8 @@ export const pairs = [
   [`Sie müssen nichts tun.`, `Nothing for you to do.`],
   [`<dt>Serverstandort</dt><dd>Deutschland</dd>`, `<dt>Server location</dt><dd>Germany</dd>`],
   [`Für Handwerksbetriebe, Startups und größere Firmen. Auf Wunsch mit AVV nach DSGVO und festen Reaktionszeiten.`, `For local businesses, startups and larger companies. With a GDPR data processing agreement and agreed response times if you need them.`],
+  [`Erstgespräch buchen`, `Book a first call`],
+  [`Kostenlos, 30 Minuten per Video. Den Termin wählen Sie direkt in meinem Kalender.`, `Free, 30 minutes by video. Pick a time straight from my calendar.`],
 ];
 
 // Texte, die in beiden Sprachen gleich sind (Namen, Fachbegriffe)
