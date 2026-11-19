@@ -109,6 +109,7 @@ await cp("favicon.svg", `${OUT}/favicon.svg`);
 await cp(".htaccess", `${OUT}/.htaccess`); // Apache (z. B. Hostinger)
 await cp("_headers", `${OUT}/_headers`); // Cloudflare
 await writeFile(`${OUT}/.assetsignore`, ".htaccess\n"); // Cloudflare soll die Apache-Datei nicht ausliefern
+await cp("googlec6613e0d40a72d6a.html", `${OUT}/googlec6613e0d40a72d6a.html`); // Bestätigung für die Google Search Console, nicht löschen
 if (hasFont) await cp("fonts", `${OUT}/fonts`, { recursive: true });
 
 // Porträt: aus images/portrait.jpg werden kleine WebP-Dateien in passenden Größen
