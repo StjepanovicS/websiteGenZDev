@@ -6,7 +6,7 @@
 //
 // - ohne Ton (läuft stumm und automatisch, das erlauben Browser nur ohne Ton)
 // - 360 × 640 px, H.264, für schnelles Starten optimiert (faststart)
-// - endet nach 27,8 s, vor der Einblendung „Jetzt verfügbar“ mit Store-Badges,
+// - endet vor der Einblendung „Jetzt verfügbar“ mit Store-Badges,
 //   solange die App noch nicht veröffentlicht ist
 
 import { execFileSync } from "node:child_process";
@@ -14,14 +14,15 @@ import { mkdirSync } from "node:fs";
 import ffmpeg from "@ffmpeg-installer/ffmpeg";
 import sharp from "sharp";
 
-const SRC = "C:/Users/sasas/Desktop/App_Development";
-const END = "27.8";
-const POSTER_AT = "9"; // Sekunde mit gut sichtbarem App-Bildschirm
+// END: Schnitt vor „Jetzt verfügbar“, POSTER_AT: Sekunde mit gut sichtbarem App-Bildschirm
+const VIDEOS = [
+  { lang: "de", input: "C:/Users/sasas/Desktop/videoGenZ.mp4", END: "24.7", POSTER_AT: "8" },
+  { lang: "en", input: "C:/Users/sasas/Desktop/App_Development/StayInContact-Werbevideo-English.mp4", END: "27.8", POSTER_AT: "9" },
+];
 
 mkdirSync("media", { recursive: true });
 
-for (const [lang, file] of [["de", "StayInContact-Werbevideo-Deutsch.mp4"], ["en", "StayInContact-Werbevideo-English.mp4"]]) {
-  const input = `${SRC}/${file}`;
+for (const { lang, input, END, POSTER_AT } of VIDEOS) {
   execFileSync(ffmpeg.path, [
     "-hide_banner", "-loglevel", "error", "-y",
     "-i", input, "-t", END, "-an",
