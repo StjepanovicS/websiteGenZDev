@@ -210,6 +210,8 @@ export const pairs = [
   [`Ich antworte innerhalb eines Werktags. Das Erstgespräch ist kostenlos.`, `I reply within one business day. The first call is free.`],
   [`B. Sc. Informatik (TU München), Gründer von GenZ Dev`, `B. Sc. Computer Science (TU Munich), founder of GenZ Dev`],
   [` (öffnet in neuem Tab)`, ` (opens in a new tab)`],
+  [`?text=Hallo%20Sa%C5%A1a%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20Projekt.`, `?text=Hi%20Sa%C5%A1a%2C%20I%27m%20interested%20in%20a%20project.`],
+  [`Per WhatsApp schreiben`, `Message me on WhatsApp`],
   [`<label for="firma">Firma <span class="optional">(optional)</span></label>`, `<label for="firma">Company <span class="optional">(optional)</span></label>`],
   [`<label for="email">E-Mail</label>`, `<label for="email">Email</label>`],
   [`Worum geht es?`, `What's it about?`],
@@ -232,7 +234,7 @@ export const pairs = [
 // Texte, die in beiden Sprachen gleich sind (Namen, Fachbegriffe)
 export const same = [
   "width=device-width, initial-scale=1", "website", "summary_large_image",
-  "GenZ Dev", "DE", "EN", "FAQ", "LinkedIn", "Name", "(optional)",
+  "GenZ Dev", "DE", "EN", "FAQ", "LinkedIn", "Instagram","Name", "(optional)",
   "Mobile Apps", "Game Development", "Mobile App · iOS &amp; Android", "StayInContact", "React Native &amp; Expo", "100&nbsp;% offline",
   "Salon Lina", "L", "9:41", "baeckerei-huber.de", "Online", "Updates",
   "Saša Stjepanović", "SS",
