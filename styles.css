@@ -736,14 +736,14 @@ a:hover { text-decoration-thickness: 2px; }
 .shot-left { transform: translateX(-74%) rotate(-7deg) scale(0.92); }
 .shot-right { transform: translateX(74%) rotate(7deg) scale(0.92); }
 
-/* Werbevideo ist 9:16, der iPhone-Bildschirm höher: oben und unten füllt
-   dasselbe Schwarz wie der Videohintergrund, so wirkt es wie ein Bildschirm */
+/* Werbevideo ist 9:16, der iPhone-Bildschirm höher: das Video füllt den
+   ganzen Bildschirm, links und rechts wird ein schmaler Rand ohne Inhalt abgeschnitten */
 .shot-video {
   --w: 190px;
   z-index: 1;
   box-shadow: 0 40px 60px -24px rgb(0 0 0 / 0.8);
 }
-.shot-video video { object-fit: contain; background: #07050b; }
+.shot-video video { object-fit: cover; background: #07050b; }
 .shot-video .video-toggle { right: calc(var(--w) * 0.08); bottom: calc(var(--w) * 0.08); width: 30px; height: 30px; z-index: 3; }
 .video-toggle {
   position: absolute; right: 10px; bottom: 10px;
