@@ -835,7 +835,8 @@ a:hover { text-decoration-thickness: 2px; }
 .person .muted { font-size: 0.9375rem; }
 
 .contact-links { display: grid; gap: 8px; margin-top: 28px; }
-.contact-links a { font-weight: 560; font-size: 1.0625rem; }
+.contact-links a { display: inline-flex; align-items: center; gap: 10px; font-weight: 560; font-size: 1.0625rem; }
+.contact-links svg { flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .btn-whatsapp { margin-top: 24px; }
 .btn-whatsapp svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
 
