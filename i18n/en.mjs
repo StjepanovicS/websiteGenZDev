@@ -96,6 +96,7 @@ export const pairs = [
   [`Erinnert Sie daran, sich bei den Menschen zu melden, die Ihnen wichtig sind. Für jeden Kontakt legen Sie einen eigenen Rhythmus fest, ein Tipp startet Anruf oder WhatsApp. Alle Daten bleiben offline auf dem Gerät.`, `Reminds you to get in touch with the people who matter to you. Set your own rhythm for each contact, and one tap starts a call or WhatsApp. All data stays offline on the device.`],
   [`<li>27 Sprachen</li>`, `<li>27 languages</li>`],
   [`<li>100&nbsp;% offline</li>`, `<li>100&nbsp;% offline</li>`],
+  [`<a href="stayincontact-datenschutz.html">Datenschutz der App</a>`, `<a href="stayincontact-privacy.html">App privacy policy</a>`],
 
   // Preise
   [`So rechne ich ab.`, `How I charge.`],

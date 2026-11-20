@@ -94,7 +94,7 @@ const index = (await readFile("index.html", "utf8"))
 await writeFile(`${OUT}/index.html`, minifyHtml(index));
 await writeFile(`${OUT}/en/index.html`, minifyHtml(translate(index, enPairs, enSame, "en")));
 
-for (const page of ["impressum.html", "datenschutz.html"]) {
+for (const page of ["impressum.html", "datenschutz.html", "stayincontact-datenschutz.html", "stayincontact-privacy.html"]) {
   const html = (await readFile(page, "utf8")).replace('href="styles.css"', `href="${cssFile}"`);
   await writeFile(`${OUT}/${page}`, minifyHtml(preload ? html.replace("<link rel=\"stylesheet\"", `${preload}<link rel="stylesheet"`) : html));
 }
@@ -152,7 +152,7 @@ await writeFile(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE
 
 // Hinweis auf Platzhalter, die vor dem Livegang ersetzt werden müssen
 const warnings = [];
-for (const page of ["index.html", "en/index.html", "impressum.html", "datenschutz.html"]) {
+for (const page of ["index.html", "en/index.html", "impressum.html", "datenschutz.html", "stayincontact-datenschutz.html", "stayincontact-privacy.html"]) {
   // nur sichtbarer Text; Platzhalter sind Wortgruppen in eckigen Klammern, z. B. [Name des Hosters]
   const html = (await readFile(`${OUT}/${page}`, "utf8")).replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, "");
   for (const [, v] of html.matchAll(/\[([^\]<>"]*\s[^\]<>"]*)\]/g)) warnings.push(`${page}: [${v}]`);

@@ -736,6 +736,10 @@ a:hover { text-decoration-thickness: 2px; }
 
 .project-facts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .project-facts li { padding: 4px 10px; border-radius: 999px; background: var(--tint); color: var(--ink-2); font-size: 0.8125rem; font-weight: 500; }
+/* Link zur Datenschutzerklärung der App, dezent unter den Fakten */
+.project-body > .project-legal { margin-top: 14px; font-size: 0.8125rem; }
+.project-legal a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-strong); transition: color 0.15s var(--ease-out); }
+.project-legal a:hover { color: var(--ink); text-decoration-color: currentColor; }
 
 /* Preise: drei Abrechnungsmodelle, keine Beträge */
 .pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
